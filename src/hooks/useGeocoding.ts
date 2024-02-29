@@ -1,63 +1,9 @@
 import axios, { AxiosRequestConfig } from "axios";
 
-type GeocodingResponse = {
-    name: string,
-    lat: number,
-    lon: number;
-};
+import { CurrentWeather, CurrentWeatherResponseApi, GeocodingResponse } from "../types/geocoding.types";
+import { ErrorResponse } from "../types/error.types";
 
-type CurrentWeatherResponseApi = {
-    lat: number,
-    lon: number,
-    timezone: string,
-    current: {
-        dt: number,
-        sunrise: number,
-        sunset: number,
-        temp: number,
-        feels_like: number,
-        pressure: number,
-        humidity: number,
-        clouds: number,
-        wind_speed: number,
-        currentCloud: number,
-        weather: {
-            id: number,
-            main: string,
-            description: string,
-            icon: string
-        };
-    };
-};
-
-export type CurrentWeather = {
-    place?: string,
-    timezone: string,
-    temperature: {
-        current: number,
-        feelsLike: number;
-    },
-    sunrise: string,
-    sunset: string,
-    atmosphere: {
-        clouds: number,
-        pressure: number,
-        humidity: number;
-    },
-    weatherDescription: {
-        id: number,
-        main: string,
-        description: string,
-        icon: string;
-    };
-};
-
-type ErrorResponse = {
-    statusCode: number,
-    messageError: string;
-};
-
-export async function findByGeocoding(
+export async function findLocationByGeocoding(
     cityName: string,
     stateCode: string,
     countryCode: string,
@@ -90,7 +36,7 @@ export async function findByGeocoding(
     }
 }
 
-export async function findCurrentWeather(
+export async function findCurrentWeatherLatLot(
     lat: number,
     lon: number,
     apiKey: string

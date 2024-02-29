@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { findByGeocoding } from "../hooks/useGeocoding";
+import { findLocationByGeocoding } from "../hooks/useGeocoding";
 import SearchCityCard, { CityProps } from "./SearchCityCard";
 
 export default function SearchCityCardList() {
@@ -9,7 +9,7 @@ export default function SearchCityCardList() {
 
     useEffect(() => {
         const fetchCities = async () => {
-            const result = await findByGeocoding('London', '', 'GB', 10, '08630a93ab31ac1ec920ad0e4d0c2e7f');
+            const result = await findLocationByGeocoding('London', '', 'GB', 10, '08630a93ab31ac1ec920ad0e4d0c2e7f');
             if ('statusCode' in result) {
                 setError(result.messageError);
             } else {
