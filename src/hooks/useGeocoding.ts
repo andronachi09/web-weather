@@ -5,15 +5,13 @@ import { ErrorResponse } from "../types/error.types";
 
 export async function findLocationByGeocoding(
     cityName: string,
-    stateCode: string,
-    countryCode: string,
     limit: number,
     apiKey: string
 ): Promise<GeocodingResponse[] | ErrorResponse> {
     const config: AxiosRequestConfig = {
         baseURL: `http://api.openweathermap.org/geo/1.0/direct`,
         params: {
-            q: `${cityName}, ${stateCode}, ${countryCode}`,
+            q: `${cityName}`,
             limit,
             appid: apiKey
         },

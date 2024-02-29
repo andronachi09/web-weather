@@ -1,11 +1,10 @@
-import SearchCityCardList from "./components/SearchCityCardList";
+import SearchWithResults from "./components/organisms/SearchWithResults";
 
 export default function App() {
   return (
     <html>
       <main>
-        <h1>Main Page</h1>
-        <SearchCityCardList />
+        <SearchWithResults />
       </main>
     </html>
   );
