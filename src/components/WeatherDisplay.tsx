@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import {  findCurrentWeatherLatLot } from '../hooks/useGeocoding';
+import {  findCurrentWeatherLatLon } from '../hooks/useGeocoding';
 import { CurrentWeather } from '../types/geocoding.types';
 
 const WeatherDisplay: React.FC<{ lat: number; lon: number; apiKey: string }> = ({ lat, lon, apiKey }) => {
@@ -10,7 +10,7 @@ const WeatherDisplay: React.FC<{ lat: number; lon: number; apiKey: string }> = (
   useEffect(() => {
     const fetchWeather = async () => {
       try {
-          const data = await findCurrentWeatherLatLot(lat, lon, apiKey);
+          const data = await findCurrentWeatherLatLon(lat, lon, apiKey);
 
           if ('statusCode' in data) {
               setError(`Error: ${data.messageError}`);

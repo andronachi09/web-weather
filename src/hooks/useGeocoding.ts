@@ -36,11 +36,33 @@ export async function findLocationByGeocoding(
     }
 }
 
-export async function findCurrentWeatherLatLot(
+export async function findCurrentWeatherLatLon(
     lat: number,
     lon: number,
     apiKey: string
-): Promise< ErrorResponse | CurrentWeather> {
+): Promise<ErrorResponse | CurrentWeather> {
+    //fetching place name by reverse geocoding
+    const reverseGeocodingConfig: AxiosRequestConfig = {
+        baseURL: `http://api.openweathermap.org/geo/1.0/reverse`,
+        params: {
+            lat,
+            lon,
+            limit: 1,
+            appid: apiKey
+        },
+    };
+
+    let placeName = `${lat}, ${lon}`;
+
+    try {
+        const geoResponse = await axios.get<GeocodingResponse[]>(reverseGeocodingConfig.url!, reverseGeocodingConfig);
+        if (geoResponse.data && geoResponse.data.length > 0) {
+            placeName = geoResponse.data[0].name;
+        }
+    } catch (geoError) {
+        console.error("Error fetching location name:", geoError);
+    }
+
     const config: AxiosRequestConfig = {
         baseURL: `https://api.openweathermap.org/data/3.0/onecall`,
         params: {
@@ -57,7 +79,7 @@ export async function findCurrentWeatherLatLot(
         const data = response.data;
 
         const transformData: CurrentWeather = {
-            place: `${data.lat} ${data.lon}`,
+            place: placeName,
             timezone: data.timezone,
             temperature: {
                 current: data.current.temp,
