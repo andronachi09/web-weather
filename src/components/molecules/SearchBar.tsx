@@ -20,7 +20,6 @@ export default function SearchBar({ onSearch, className }: SearchBarProps) {
 
     const handleClear = () => {
         onSearch('');
-        setInputText('');
     };
 
     return (

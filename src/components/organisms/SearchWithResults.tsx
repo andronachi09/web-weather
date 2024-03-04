@@ -13,13 +13,8 @@ export default function SearchWithResults({ className }: SearchWithResultsProp) 
     const [searchTerm, setSearchTerm] = useState<string>('');
 
     useEffect(() => {
-        if (searchTerm === '') {
-            setCities([]);
-            return;
-        }
-
         const fetchCities = async () => {
-            const result = await findLocationByGeocoding(searchTerm, 5, '08630a93ab31ac1ec920ad0e4d0c2e7f');
+            const result = await findLocationByGeocoding(searchTerm, 10, '08630a93ab31ac1ec920ad0e4d0c2e7f');
             console.log(result);
             if ('statusCode' in result) {
                 return "error"
