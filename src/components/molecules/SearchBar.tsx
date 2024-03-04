@@ -18,8 +18,13 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
     };
 
     return (
-        <div>
-            <InputField type="search" onChange={onHandleChange} placeholder="search for location" />
+        <div className="flex flex-row ">
+            <InputField
+                type="search"
+                onChange={onHandleChange}
+                placeholder="search for location"
+                className="text-3xl font-bold"
+            />
             <Button onClick={handleSearch}>Search</Button>
         </div>
     );
