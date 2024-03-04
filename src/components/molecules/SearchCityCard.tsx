@@ -6,6 +6,7 @@ type CityProps = {
     state: string,
     lat?: number,
     lon?: number,
+    className: string,
     children?: ReactNode;
 };
 
@@ -13,17 +14,19 @@ export default function SearchCityCard({
     cityName,
     country,
     state,
-    children
+    className,
 }: CityProps) {
+
     return (
-        <div className="bg-white">
+        <div className={className}>
             <div>
-                <h4>City name: {cityName}</h4>
-                <h4>Country: {country}</h4>
-                <h4>State: {state}</h4>
-            </div>
-            <div>
-                { children }
+                <div className="flex flex-row">
+                    <h4>location/country: {cityName}</h4>
+                    <h4>, {country}</h4>
+                </div>
+                <div>
+                    {state && <h4>state: {state}</h4>}
+                </div>
             </div>
         </div>
     );

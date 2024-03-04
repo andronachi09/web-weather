@@ -39,17 +39,21 @@ export default function SearchWithResults({ className }: SearchWithResultsProp) 
 
     return (
         <div className={className}>
-            <SearchBar
-                onSearch={setSearchTerm}
-                className='flex items-center justify-center w-96 rounded bg-white'
-            />
+            <div>
+                <SearchBar
+                    onSearch={setSearchTerm}
+                    className='flex items-center justify-center w-96 rounded-xl bg-white'
+                />
+            </div>
             <div
                 className={`transform transition-all ease-out duration-1000 ${cities.length > 0 ? 'translate-y-0' : 'translate-y-4'}`}
             >
-                <SearchCityCardList
-                    className='grid-flow-row gap-20 py-10'
-                    cities={cities}
-                />
+                <div className="flex flex-wrap gap-8 justify-center md:justify-start max-w-max pt-10">
+                    <SearchCityCardList
+                        className="md:flex md:items-center md:flex-col lg:flex lg:items-center lg:flex-row"
+                        cities={cities}
+                    />
+                </div>
             </div>
         </div>
     );

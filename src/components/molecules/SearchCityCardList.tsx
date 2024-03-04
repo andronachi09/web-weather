@@ -12,11 +12,10 @@ export default function SearchCityCardList({ cities = [], className } : CitiesLi
             {cities.map((city, index) => (
                 <li key={index}>
                     <SearchCityCard
+                        className="cursor-pointer rounded-xl m-4 bg-white p-5 hover:scale-110 ease-in duration-200"
                         cityName={city.cityName}
                         state={city.state}
                         country={city.country}
-                        lon={city.lon}
-                        lat={city.lat}
                     />
                 </li>
             ))}
