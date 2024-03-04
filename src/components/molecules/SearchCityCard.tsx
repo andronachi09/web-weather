@@ -16,7 +16,7 @@ export default function SearchCityCard({
     children
 }: CityProps) {
     return (
-        <div>
+        <div className="bg-white">
             <div>
                 <h4>City name: {cityName}</h4>
                 <h4>Country: {country}</h4>

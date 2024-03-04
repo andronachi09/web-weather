@@ -1,20 +1,34 @@
-import { ChangeEventHandler } from "react"
+import { ChangeEventHandler, ReactNode } from "react"
 
 type InputFieldProps = {
     type: string,
+    value?: string,
     placeholder?: string,
+    className?: string,
+    children?: ReactNode,
     onChange?: ChangeEventHandler<HTMLInputElement>,
-    className: string;
+    onFocus?: ChangeEventHandler<HTMLInputElement>;
 };
 
-export default function InputField({ type, placeholder, onChange, className }: InputFieldProps) {
+export default function InputField({
+    type,
+    value,
+    placeholder,
+    className,
+    children,
+    onChange,
+    onFocus
+}: InputFieldProps) {
     return (
         <div>
             <input
                 type={type}
+                value={value}
                 placeholder={placeholder}
-                onChange={onChange}
                 className={className}
+                children={children}
+                onChange={onChange}
+                onFocus={onFocus}
             />
         </div>
     );

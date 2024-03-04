@@ -2,23 +2,24 @@ import { CityType } from "../../types/city.types";
 import SearchCityCard  from "./SearchCityCard";
 
 type CitiesListProps = {
-    cities: CityType[]
+    cities: CityType[],
+    className: string;
 };
 
-export default function SearchCityCardList({ cities = [] } : CitiesListProps) {
+export default function SearchCityCardList({ cities = [], className } : CitiesListProps) {
     return (
-            <ul>
-                {cities.map((city, index) => (
-                    <li key={index}>
-                        <SearchCityCard
-                            cityName={city.cityName}
-                            state={city.state}
-                            country={city.country}
-                            lon={city.lon}
-                            lat={city.lat}
-                        />
-                    </li>
-                ))}
-            </ul>
+        <ul className={className}>
+            {cities.map((city, index) => (
+                <li key={index}>
+                    <SearchCityCard
+                        cityName={city.cityName}
+                        state={city.state}
+                        country={city.country}
+                        lon={city.lon}
+                        lat={city.lat}
+                    />
+                </li>
+            ))}
+        </ul>
     );
 }
