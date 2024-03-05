@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-import {  findCurrentWeatherLatLon } from '../hooks/useGeocoding';
-import { CurrentWeather } from '../types/geocoding.types';
+import {  findCurrentWeatherLatLon } from '../../hooks/useGeocoding';
+import { CurrentWeather } from '../../types/geocoding.types';
 
 const WeatherDisplay: React.FC<{ lat: number; lon: number; apiKey: string }> = ({ lat, lon, apiKey }) => {
   const [weather, setWeather] = useState<CurrentWeather | null>(null);

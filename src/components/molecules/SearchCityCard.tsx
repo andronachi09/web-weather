@@ -7,7 +7,8 @@ type CityProps = {
     lat?: number,
     lon?: number,
     className: string,
-    children?: ReactNode;
+    children?: ReactNode,
+    onClick?: () => void;
 };
 
 export default function SearchCityCard({
@@ -15,10 +16,11 @@ export default function SearchCityCard({
     country,
     state,
     className,
+    onClick
 }: CityProps) {
 
     return (
-        <div className={className}>
+        <div className={className} onClick={onClick}>
             <div className="lg:flex lg:flex-col md:flex md:flex-col">
                 <h4>location/country:</h4>
                 <h4>{cityName}, {country}</h4>

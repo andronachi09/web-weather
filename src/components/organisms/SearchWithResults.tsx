@@ -6,7 +6,7 @@ import { findLocationByGeocoding } from '../../hooks/useGeocoding';
 import { CityType } from '../../types/city.types';
 
 type SearchWithResultsProp = {
-    className: string;
+    className: string,
 };
 
 export default function SearchWithResults({ className }: SearchWithResultsProp) {
@@ -50,9 +50,9 @@ export default function SearchWithResults({ className }: SearchWithResultsProp) 
             <div
                 className={`transform transition-all ease-out duration-1000 ${cities.length > 0 ? 'translate-y-0' : 'translate-y-4'}`}
             >
-                <div className="flex flex-wrap gap-8 justify-center md:justify-start max-w-max pt-10">
+                <div className="flex flex-col justify-center pt-10">
                     <SearchCityCardList
-                        className="md:flex md:items-center md:flex-col lg:flex lg:items-center lg:flex-row"
+                        className="md:flex md:flex-col md:justify-center  lg:flex lg:flex-row lg:justify-center "
                         cities={cities}
                     />
                 </div>
