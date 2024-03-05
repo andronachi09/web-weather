@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
-import SearchBar from '../molecules/SearchBar'
-import SearchCityCardList from '../molecules/SearchCityCardList'
+import { useEffect, useState } from 'react';
+
+import SearchBar from '../molecules/SearchBar';
+import SearchCityCardList from '../molecules/SearchCityCardList';
 import { findLocationByGeocoding } from '../../hooks/useGeocoding';
 import { CityType } from '../../types/city.types';
 
@@ -11,13 +12,17 @@ type SearchWithResultsProp = {
 export default function SearchWithResults({ className }: SearchWithResultsProp) {
     const [cities, setCities] = useState<CityType[]>([]);
     const [searchTerm, setSearchTerm] = useState<string>('');
+    const [error, setError] = useState<string>('');
 
     useEffect(() => {
         const fetchCities = async () => {
             const result = await findLocationByGeocoding(searchTerm, 10, '08630a93ab31ac1ec920ad0e4d0c2e7f');
             console.log(result);
             if ('statusCode' in result) {
-                return "error"
+                return error;
+            } else if (!result || result.length === 0) {
+                setError('No result found.');
+                setCities([]);
             } else {
                 setCities(result.map(city => ({
                     cityName: city.name,
@@ -26,6 +31,7 @@ export default function SearchWithResults({ className }: SearchWithResultsProp) 
                     lat: city.lat,
                     lon: city.lon
                 })));
+                setError('');
             }
         };
 
@@ -37,6 +43,7 @@ export default function SearchWithResults({ className }: SearchWithResultsProp) 
             <div>
                 <SearchBar
                     onSearch={setSearchTerm}
+                    onError={error}
                     className='flex items-center justify-center w-96 rounded-xl bg-white'
                 />
             </div>

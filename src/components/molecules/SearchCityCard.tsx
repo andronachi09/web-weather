@@ -19,14 +19,12 @@ export default function SearchCityCard({
 
     return (
         <div className={className}>
+            <div className="lg:flex lg:flex-col md:flex md:flex-col">
+                <h4>location/country:</h4>
+                <h4>{cityName}, {country}</h4>
+            </div>
             <div>
-                <div className="flex flex-row">
-                    <h4>location/country: {cityName}</h4>
-                    <h4>, {country}</h4>
-                </div>
-                <div>
-                    {state && <h4>state: {state}</h4>}
-                </div>
+                {state && <h4>state: {state}</h4>}
             </div>
         </div>
     );
