@@ -66,7 +66,7 @@ export async function findCurrentWeatherLatLon(
         params: {
             lat,
             lon,
-            exclude: 'minutely,hourly,daily, alerts',
+            exclude: 'minutely, alerts',
             appid: apiKey,
             units: 'metric'
         },
@@ -83,10 +83,10 @@ export async function findCurrentWeatherLatLon(
                 current: data.current.temp,
                 feelsLike: data.current.feels_like
             },
-            sunrise: new Date(data.current.sunrise * 1000).toLocaleTimeString(),
-            sunset: new Date(data.current.sunset * 1000).toLocaleTimeString(),
+            sunrise: new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: data.timezone }).format(new Date(data.current.sunrise * 1000)),
+            sunset: new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: data.timezone }).format(new Date(data.current.sunset * 1000)),
             atmosphere: {
-                clouds: data.current.currentCloud,
+                clouds: data.current.clouds,
                 pressure: data.current.pressure,
                 humidity: data.current.humidity
             },
@@ -95,8 +95,13 @@ export async function findCurrentWeatherLatLon(
                 main: data.current.weather.main,
                 description: data.current.weather.description,
                 icon: data.current.weather.description
-            }
-        }
+            },
+            daily: data.daily.map(day => ({
+                maxTemp: day.temp.max,
+                minTemp: day.temp.min,
+                summary: day.summary
+            }))
+        };
 
         return transformData;
 
