@@ -6,13 +6,20 @@ import WeatherDisplay from "../organisms/WeatherDisplay";
 
 type CitiesListProps = {
     cities: CityType[],
-    className: string,
+    className: string;
 };
 
 export default function SearchCityCardList({ cities = [], className }: CitiesListProps) {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [longitude, setLongitude] = useState<number | null>(0);
+    const [latitude, setLatitude] = useState<number | null>(0);
 
-    const handleModal = () => setIsModalOpen(!isModalOpen);
+
+    const handleModal = (lat: number, lon: number) => {
+        setIsModalOpen(!isModalOpen);
+        setLatitude(lat);
+        setLongitude(lon);
+    };
 
     return (
         <div>
@@ -26,30 +33,29 @@ export default function SearchCityCardList({ cities = [], className }: CitiesLis
                                     cityName={city.cityName}
                                     state={city.state}
                                     country={city.country}
-                                    onClick={handleModal}
+                                    onClick={() => handleModal(city.lat, city.lon)}
                                 />
                             </div>
                         </li>
                     ))}
                 </ul>
             </div>
-                <div>
-                    <Modal
-                        open={isModalOpen}
-                        onClose={handleModal}
-                        aria-labelledby="transition-modal-title"
-                        className="flex flex-col justify-center items-center"
-                    >
-                        <Box className="flex justify-center items-center h-3/6 w-3/6 bg-white rounded-2xl">
-                            {/* <WeatherDisplay
-                            lat={55.85}
-                            lon={9.84}
+            <div>
+                <Modal
+                    open={isModalOpen}
+                    onClose={() => setIsModalOpen(false)}
+                    aria-labelledby="transition-modal-title"
+                    className="flex flex-col justify-center items-center"
+                >
+                    <Box className="flex justify-center items-center h-3/6 w-3/6 bg-white rounded-2xl">
+                        <WeatherDisplay
+                            lat={latitude!}
+                            lon={longitude!}
                             apiKey="08630a93ab31ac1ec920ad0e4d0c2e7f"
-                        /> */}
-                            <h1>Zdarova Natasha</h1>
-                        </Box>
-                    </Modal>
-                </div>
+                        />
+                    </Box>
+                </Modal>
             </div>
+        </div>
     );
 }
