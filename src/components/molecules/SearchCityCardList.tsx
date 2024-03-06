@@ -11,8 +11,8 @@ type CitiesListProps = {
 
 export default function SearchCityCardList({ cities = [], className }: CitiesListProps) {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [longitude, setLongitude] = useState<number | null>(0);
-    const [latitude, setLatitude] = useState<number | null>(0);
+    const [longitude, setLongitude] = useState<number>(0);
+    const [latitude, setLatitude] = useState<number>(0);
 
 
     const handleModal = (lat: number, lon: number) => {
@@ -40,22 +40,22 @@ export default function SearchCityCardList({ cities = [], className }: CitiesLis
                     ))}
                 </ul>
             </div>
-            <div>
-                <Modal
-                    open={isModalOpen}
-                    onClose={() => setIsModalOpen(false)}
-                    aria-labelledby="transition-modal-title"
-                    className="flex flex-col justify-center items-center"
-                >
-                    <Box className="flex justify-center items-center h-3/6 w-3/6 bg-white rounded-2xl">
-                        <WeatherDisplay
-                            lat={latitude!}
-                            lon={longitude!}
+                <div>
+                    <Modal
+                        open={isModalOpen}
+                        onClose={() => setIsModalOpen(false)}
+                        aria-labelledby="transition-modal-title"
+                        className="flex flex-col justify-center items-center"
+                    >
+                        <Box className="flex justify-center items-center h-screen w-3/6 bg-white rounded-2xl">
+                            <WeatherDisplay
+                            lat={latitude}
+                            lon={longitude}
                             apiKey="08630a93ab31ac1ec920ad0e4d0c2e7f"
                         />
-                    </Box>
-                </Modal>
+                        </Box>
+                    </Modal>
+                </div>
             </div>
-        </div>
     );
 }

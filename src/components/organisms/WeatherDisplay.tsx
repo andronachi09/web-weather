@@ -3,41 +3,52 @@ import React, { useState, useEffect } from 'react';
 import {  findCurrentWeatherLatLon } from '../../hooks/useGeocoding';
 import { CurrentWeather } from '../../types/geocoding.types';
 
-const WeatherDisplay: React.FC<{ lat: number; lon: number; apiKey: string }> = ({ lat, lon, apiKey }) => {
-  const [weather, setWeather] = useState<CurrentWeather | null>(null);
-  const [error, setError] = useState<string | null>(null);
+type WeatherDisplayType = {
+  lat: number,
+  lon: number,
+  apiKey: string
+}
+
+export default function WeatherDisplay({ lat, lon, apiKey }: WeatherDisplayType) {
+  const [currentWeather, setCurrentWeather] = useState<CurrentWeather | null>(null);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchWeather = async () => {
       try {
-          const data = await findCurrentWeatherLatLon(lat, lon, apiKey);
-
-          if ('statusCode' in data) {
-              setError(`Error: ${data.messageError}`);
-          } else {
-              setWeather(data);
-          }
+        const fetchedData = await findCurrentWeatherLatLon(lat, lon, apiKey);
+        if ('statusCode' in fetchedData) {
+          setError(`Error: ${fetchedData.messageError}`);
+        } else {
+          setCurrentWeather(fetchedData);
+        }
       } catch (error) {
         setError('Failed to fetch weather data');
-        }
+      }
     };
-
     fetchWeather();
   }, [lat, lon, apiKey]);
 
-  if (error) return <div>Error: {error}</div>;
-  if (!weather) return <div>Loading...</div>;
+  if(error) return <div>Error.</div>
+  if (!currentWeather) return <div>Loading...</div>
+
+  console.log(currentWeather.daily);
 
   return (
     <div>
-      <h2>Weather in {weather.place}</h2>
-      <p>Timezone: {weather.timezone}</p>
-      <p>Temperature: {weather.temperature.current}°C, Feels like: {weather.temperature.feelsLike}°C</p>
-      <p>Sunrise: {weather.sunrise}, Sunset: {weather.sunset}</p>
-      <p>Clouds: {weather.atmosphere.clouds}%, Pressure: {weather.atmosphere.pressure} hPa, Humidity: {weather.atmosphere.humidity}%</p>
-      <p>Weather: {weather.weatherDescription.description} <img src={`http://openweathermap.org/img/w/${weather.weatherDescription.icon}.png`} alt="Weather icon" /></p>
+      <h2>Weather in {currentWeather.place}</h2>
+      <p>Timezone: {currentWeather.timezone}</p>
+      <p>Temperature: {currentWeather.temperature.current}°C, Feels like: {currentWeather.temperature.feelsLike}°C</p>
+      <p>Sunrise: {currentWeather.sunrise}, Sunset: {currentWeather.sunset}</p>
+      <p>Clouds: {currentWeather.atmosphere.clouds}%, Pressure: {currentWeather.atmosphere.pressure} hPa, Humidity: {currentWeather.atmosphere.humidity}%</p>
+      <div>
+        {currentWeather.daily.map((day, index) =>
+          <div key={index}>
+            <p>{day.maxTemp}</p>
+            <p>{day.minTemp}</p>
+            <p>{day.summary}</p>
+          </div>)}
+      </div>
     </div>
   );
-};
-
-export default WeatherDisplay;
+}
