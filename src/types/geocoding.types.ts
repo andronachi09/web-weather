@@ -28,6 +28,13 @@ export type CurrentWeatherResponseApi = {
             icon: string
         };
     };
+    daily: [{
+        temp: {
+            min: number,
+            max: number;
+        },
+        summary: string;
+    }]
 };
 
 export type CurrentWeather = {
@@ -50,4 +57,9 @@ export type CurrentWeather = {
         description: string,
         icon: string;
     };
+    daily: Array<{
+        maxTemp: number,
+        minTemp: number,
+        summary: string;
+    }>
 };
