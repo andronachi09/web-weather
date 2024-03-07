@@ -13,11 +13,12 @@ export default function SearchWithResults({ className }: SearchWithResultsProp) 
     const [cities, setCities] = useState<CityType[]>([]);
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [error, setError] = useState<string>('');
+    const apiKey: string = (import.meta.env.VITE_WEATHER_API_KEY);
+
 
     useEffect(() => {
         const fetchCities = async () => {
-            const result = await findLocationByGeocoding(searchTerm, 10, '08630a93ab31ac1ec920ad0e4d0c2e7f');
-            console.log(result);
+            const result = await findLocationByGeocoding(searchTerm, 10, apiKey);
             if ('statusCode' in result) {
                 return error;
             } else if (!result || result.length === 0) {
