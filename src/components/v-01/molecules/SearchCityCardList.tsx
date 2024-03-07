@@ -1,5 +1,5 @@
 import { Box, Modal } from "@mui/material";
-import { CityType } from "../../types/city.types";
+import { CityType } from "../../../types/city.types";
 import SearchCityCard  from "./SearchCityCard";
 import { useState } from "react";
 import WeatherDisplay from "../organisms/WeatherDisplay";

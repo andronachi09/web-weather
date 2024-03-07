@@ -1,4 +1,4 @@
-import SearchWithResults from "./components/organisms/SearchWithResults";
+import SearchWithResults from "./components/v-01/organisms/SearchWithResults";
 
 export default function App() {
   return (

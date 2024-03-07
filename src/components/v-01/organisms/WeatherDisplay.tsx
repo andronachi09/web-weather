@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
-import {  findCurrentWeatherLatLon } from '../../hooks/useGeocoding';
-import { CurrentWeather } from '../../types/geocoding.types';
+import {  findCurrentWeatherLatLon } from '../../../hooks/useGeocoding';
+import { CurrentWeather } from '../../../types/geocoding.types';
 
 type WeatherDisplayType = {
   lat: number,
@@ -49,14 +49,14 @@ export default function WeatherDisplay({ lat, lon, apiKey }: WeatherDisplayType)
             <p>{day.summary}</p>
           </div>)}
       </div>
-      <div>
+      {/* <div>
         {currentWeather.hourly.map((hour, index) =>
           <div key={index}>
             <p>{hour.time}</p>
             <p>{hour.temperature}</p>
           </div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 }

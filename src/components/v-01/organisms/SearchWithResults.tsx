@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 
 import SearchBar from '../molecules/SearchBar';
 import SearchCityCardList from '../molecules/SearchCityCardList';
-import { findLocationByGeocoding } from '../../hooks/useGeocoding';
-import { CityType } from '../../types/city.types';
+import { findLocationByGeocoding } from '../../../hooks/useGeocoding';
+import { CityType } from '../../../types/city.types';
 
 type SearchWithResultsProp = {
     className: string,

@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import Button from "../atoms/Button";
 import InputField from "../atoms/InputField";
-import { validateAndSanitizeSearchInput } from "../../utils/validateSearchInput";
+import { validateAndSanitizeSearchInput } from "../../../utils/validateSearchInput";
 import ErrorMessage from "../atoms/ErrorMessage";
 
 type SearchBarProps = {
