@@ -100,9 +100,14 @@ export async function findCurrentWeatherLatLon(
                 maxTemp: day.temp.max,
                 minTemp: day.temp.min,
                 summary: day.summary
+            })),
+            hourly: data.hourly.map(hour => ({
+                time: new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: data.timezone}).format(new Date(hour.dt * 1000)),
+                temperature: hour.temp
             }))
         };
 
+        console.log("Transform data:", transformData);
         return transformData;
 
     } catch (error) {

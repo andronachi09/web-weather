@@ -34,6 +34,10 @@ export type CurrentWeatherResponseApi = {
             max: number;
         },
         summary: string;
+    }];
+    hourly: [{
+        dt: number,
+        temp: number;
     }]
 };
 
@@ -61,5 +65,9 @@ export type CurrentWeather = {
         maxTemp: number,
         minTemp: number,
         summary: string;
+    }>
+    hourly: Array<{
+        time: string,
+        temperature: number,
     }>
 };
