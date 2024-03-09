@@ -1,4 +1,4 @@
-import MainView from './components/v-02/templates/MainView';
+import MainView from './components/v-02/pages/MainView';
 
 export default function App() {
 	return (

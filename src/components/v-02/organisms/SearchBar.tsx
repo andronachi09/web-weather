@@ -1,9 +1,15 @@
 import { useEffect, useState } from 'react';
-import { GeocodingResponse } from '../../../types/geocoding.types';
-import { validateAndSanitizeSearchInput } from '../../../utils/validateSearchInput';
+
 import { findLocationByGeocoding } from '../../../hooks/useGeocoding';
+
 import InputField from '../atoms/InputField';
 import ErrorMessage from '../atoms/ErrorMessage';
+import SearchBarList from '../molecules/SearchBarList';
+import Button from '../atoms/Button';
+import Spinner from '../atoms/Spinner';
+
+import { validateAndSanitizeSearchInput } from '../../../utils/validateSearchInput';
+import { GeocodingResponse } from '../../../types/geocoding.types';
 
 type SearchBarProps = {
 	apiKey: string;
@@ -72,40 +78,22 @@ export default function SearchBar({ apiKey }: SearchBarProps) {
 				className='rounded-xl p-2 outline-none w-80 text-base'
 			/>
 			{inputText && (
-				<button
+				<Button
 					onClick={() => setInputText('')}
 					type='button'
-					className='absolute inset-y-0 right-0 pr-3 flex items-center text-[#1E1F24] hover:text-[#C6E6E8]'
+					className='absolute inset-y-0 right-0 px-3 flex items-center text-[#1E1F24] hover:text-[#C6E6E8]'
 				>
-					{/* Replace "X" with an icon or SVG for better styling if preferred */}
 					<span className='text-base'>X</span>
-				</button>
+				</Button>
 			)}
 			{inputText ? (
 				<div className='absolute w-full top-9 bg-white shadow-md max-h-100 overflow-y-auto mt-1 border border-gray-200 rounded-xl'>
 					{isLoading ? (
-						// Loading state
-						<div className='flex justify-center items-center p-4'>
-							<div className='animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900'></div>
-						</div>
+						<Spinner />
 					) : error ? (
-						// Error state
-						<div>{error && <ErrorMessage error={error} />}</div>
+						<ErrorMessage error={error} />
 					) : locations.length > 0 ? (
-						// Results list
-						<ul>
-							{locations.map((location, index) => (
-								<li
-									key={index}
-									className='p-2 hover:bg-[#C6E6E8] cursor-pointer'
-								>
-									{location.name}, {location.country}
-									{location.state
-										? `, ${location.state}`
-										: ''}
-								</li>
-							))}
-						</ul>
+						<SearchBarList locations={locations} />
 					) : (
 						''
 					)}

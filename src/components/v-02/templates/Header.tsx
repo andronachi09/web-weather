@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { getDate } from '../../../utils/getDate';
-import SearchBar from '../molecules/SearchBar';
+import SearchBar from '../organisms/SearchBar';
 
 export default function Header() {
 	const [date, setDate] = useState<string>(getDate());

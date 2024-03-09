@@ -1,4 +1,4 @@
-import Header from '../organisms/Header';
+import Header from '../templates/Header';
 
 export default function MainView() {
 	return (
