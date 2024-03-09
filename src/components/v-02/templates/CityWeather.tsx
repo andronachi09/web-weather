@@ -1,7 +1,7 @@
 type CityWeatherProps = {
-	lat?: number;
-	lon?: number;
-	apiKey?: string;
+	lat: number;
+	lon: number;
+	apiKey: string;
 };
 
 export default function CityWeather({ lat, lon, apiKey }: CityWeatherProps) {
