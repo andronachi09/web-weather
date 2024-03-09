@@ -13,9 +13,13 @@ import { GeocodingResponse } from '../../../types/geocoding.types';
 
 type SearchBarProps = {
 	apiKey: string;
+	onCoordinatesSelect: (lat: number, lon: number) => void;
 };
 
-export default function SearchBar({ apiKey }: SearchBarProps) {
+export default function SearchBar({
+	apiKey,
+	onCoordinatesSelect,
+}: SearchBarProps) {
 	const [inputText, setInputText] = useState<string>('');
 	const [locations, setLocations] = useState<GeocodingResponse[]>([]);
 	const [error, setError] = useState<string>('');
@@ -93,7 +97,10 @@ export default function SearchBar({ apiKey }: SearchBarProps) {
 					) : error ? (
 						<ErrorMessage error={error} />
 					) : locations.length > 0 ? (
-						<SearchBarList locations={locations} />
+						<SearchBarList
+							onCoordinatesSelect={onCoordinatesSelect}
+							locations={locations}
+						/>
 					) : (
 						''
 					)}
