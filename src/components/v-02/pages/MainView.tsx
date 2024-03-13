@@ -4,16 +4,14 @@ import Header from '../templates/Header';
 import React from 'react';
 
 export default function MainView() {
-	const [longitude, setLongitude] = useState<number>(0);
-	const [latitude, setLatitude] = useState<number>(0);
+	const [longitude, setLongitude] = useState<number | null>(null);
+	const [latitude, setLatitude] = useState<number | null>(null);
 	const apiKey: string = import.meta.env.VITE_WEATHER_API_KEY;
 
 	const handleCoordinates = (lat: number, lon: number) => {
 		setLongitude(lon);
 		setLatitude(lat);
 	};
-
-	console.log(longitude, latitude);
 
 	return (
 		<div className='w-full h-screen bg-[#1E1F24]'>
