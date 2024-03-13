@@ -21,12 +21,12 @@ export type CurrentWeatherResponseApi = {
         clouds: number,
         wind_speed: number,
         currentCloud: number,
-        weather: {
+        weather: [{
             id: number,
             main: string,
             description: string,
-            icon: string
-        };
+            icon: string;
+        }];
     };
     daily: [{
         temp: {
@@ -55,12 +55,12 @@ export type CurrentWeather = {
         pressure: number,
         humidity: number;
     },
-    weatherDescription: {
+    weatherDescription: Array<{
         id: number,
         main: string,
         description: string,
         icon: string;
-    };
+    }>;
     daily: Array<{
         maxTemp: number,
         minTemp: number,

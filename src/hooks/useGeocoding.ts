@@ -90,12 +90,12 @@ export async function findCurrentWeatherLatLon(
                 pressure: data.current.pressure,
                 humidity: data.current.humidity
             },
-            weatherDescription: {
-                id: data.current.weather.id,
-                main: data.current.weather.main,
-                description: data.current.weather.description,
-                icon: data.current.weather.description
-            },
+            weatherDescription: data.current.weather.map(curr => ({
+                id: curr.id,
+                main: curr.main,
+                description: curr.description,
+                icon: curr.icon
+            })),
             daily: data.daily.map(day => ({
                 maxTemp: day.temp.max,
                 minTemp: day.temp.min,
@@ -107,7 +107,6 @@ export async function findCurrentWeatherLatLon(
             }))
         };
 
-        console.log("Transform data:", transformData);
         return transformData;
 
     } catch (error) {
