@@ -1,3 +1,5 @@
+import React from 'react';
+
 type SearchResultProps = {
 	name: string;
 	country: string;
@@ -5,6 +7,7 @@ type SearchResultProps = {
 	lat: number;
 	lon: number;
 	onClick: (lat: number, lon: number) => void;
+	onClose: () => void;
 };
 
 export default function SearchResult({
@@ -14,10 +17,13 @@ export default function SearchResult({
 	onClick,
 	lat,
 	lon,
+	onClose,
 }: SearchResultProps) {
 	return (
 		<div onClick={() => onClick(lat, lon)}>
-			{name}, {country} {state ? `, ${state}` : ''}
+			<div onClick={() => onClose()}>
+				{name}, {country} {state ? `, ${state}` : ''}
+			</div>
 		</div>
 	);
 }

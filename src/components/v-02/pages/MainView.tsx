@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import CityWeather from '../templates/CityWeather';
 import Header from '../templates/Header';
+import React from 'react';
 
 export default function MainView() {
 	const [longitude, setLongitude] = useState<number>(0);

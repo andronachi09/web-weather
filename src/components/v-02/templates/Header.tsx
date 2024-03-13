@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import { getDate } from '../../../utils/getDate';
 import SearchBar from '../organisms/SearchBar';

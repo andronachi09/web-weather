@@ -1,3 +1,5 @@
+import React from 'react';
+
 type CityWeatherProps = {
 	lat: number;
 	lon: number;

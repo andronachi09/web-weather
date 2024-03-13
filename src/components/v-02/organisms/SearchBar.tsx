@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { findLocationByGeocoding } from '../../../hooks/useGeocoding';
 
@@ -72,6 +72,11 @@ export default function SearchBar({
 		}
 	}, [inputText]);
 
+	const handleEmptyLocationsList = () => {
+		setInputText('');
+		setLocations([]);
+	};
+
 	return (
 		<div className='relative m-2 flex justify-center'>
 			<InputField
@@ -100,6 +105,7 @@ export default function SearchBar({
 						<SearchBarList
 							onCoordinatesSelect={onCoordinatesSelect}
 							locations={locations}
+							onClose={handleEmptyLocationsList}
 						/>
 					) : (
 						''
