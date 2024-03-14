@@ -98,7 +98,7 @@ export default function SearchBar({
 			{inputText ? (
 				<div className='absolute w-full top-9 bg-white shadow-md max-h-100 overflow-y-auto mt-1 border border-gray-200 rounded-xl'>
 					{isLoading ? (
-						<Spinner />
+						<Spinner className='animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900' />
 					) : error ? (
 						<ErrorMessage error={error} />
 					) : locations.length > 0 ? (
