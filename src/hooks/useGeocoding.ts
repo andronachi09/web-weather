@@ -103,7 +103,7 @@ export async function findCurrentWeatherLatLon(
                 summary: day.summary
             })),
             hourly: data.hourly.map(hour => ({
-                time: new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: data.timezone}).format(new Date(hour.dt * 1000)),
+                time: new Intl.DateTimeFormat('en-US', { hour: '2-digit', timeZone: data.timezone}).format(new Date(hour.dt * 1000)),
                 temperature: hour.temp,
                 icon: hour.weather.map((d) => d.icon)
             }))

@@ -1,6 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CurrentWeather } from '../../../types/geocoding.types';
 import { findCurrentWeatherLatLon } from '../../../hooks/useGeocoding';
+import {
+	Carousel,
+	CarouselContent,
+	CarouselItem,
+	CarouselNext,
+	CarouselPrevious,
+} from '@/components/ui/carousel';
 
 type CityWeatherProps = {
 	lat: number;
@@ -82,17 +89,26 @@ export default function CityWeather({ lat, lon, apiKey }: CityWeatherProps) {
 					</div>
 				</div>
 			</div>
-			<div className='flex flex-row space-x-5'>
-				{weatherInfo?.hourly.map((h) => (
-					<div key={h.time}>
-						<h2>{h.time}</h2>
-						<img
-							src={`https://openweathermap.org/img/wn/${h.icon}@2x.png`}
-							alt={'Weather Icon'}
-						/>
-						<h2>{h.temperature}</h2>
-					</div>
-				))}
+			<div className='py-10 flex flex-col justify-center'>
+				<Carousel className='max-w-6xl mx-6'>
+					<CarouselContent>
+						{weatherInfo?.hourly.map((h, index) => (
+							<CarouselItem key={index} className='basis-1/7'>
+								<div className='rounded-3xl bg-[#C6E6E8] w-28 p-4 flex flex-col items-center'>
+									<h2>{h.time}</h2>
+									<img
+										src={`https://openweathermap.org/img/wn/${h.icon}@2x.png`}
+										alt={'Weather Icon'}
+										className='w-16 h-16'
+									/>
+									<h2>{Math.round(h.temperature)}°</h2>
+								</div>
+							</CarouselItem>
+						))}
+					</CarouselContent>
+					<CarouselPrevious className='ml-2' />
+					<CarouselNext className='mr-2' />
+				</Carousel>
 			</div>
 		</div>
 	);
