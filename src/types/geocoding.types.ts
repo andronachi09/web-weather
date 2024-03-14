@@ -38,6 +38,12 @@ export type CurrentWeatherResponseApi = {
     hourly: [{
         dt: number,
         temp: number;
+        weather: [{
+            id: number,
+            main: string,
+            description: string,
+            icon: string;
+        }]
     }]
 };
 
@@ -70,5 +76,6 @@ export type CurrentWeather = {
     hourly: Array<{
         time: string,
         temperature: number,
+        icon: string[];
     }>
 };

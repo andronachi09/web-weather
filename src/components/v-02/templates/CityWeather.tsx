@@ -82,6 +82,18 @@ export default function CityWeather({ lat, lon, apiKey }: CityWeatherProps) {
 					</div>
 				</div>
 			</div>
+			<div className='flex flex-row space-x-5'>
+				{weatherInfo?.hourly.map((h) => (
+					<div key={h.time}>
+						<h2>{h.time}</h2>
+						<img
+							src={`https://openweathermap.org/img/wn/${h.icon}@2x.png`}
+							alt={'Weather Icon'}
+						/>
+						<h2>{h.temperature}</h2>
+					</div>
+				))}
+			</div>
 		</div>
 	);
 }
