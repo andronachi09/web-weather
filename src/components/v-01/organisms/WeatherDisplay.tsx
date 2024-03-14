@@ -43,8 +43,6 @@ export default function WeatherDisplay({
 	if (error) return <div>Error.</div>;
 	if (!currentWeather) return <div>Loading...</div>;
 
-	console.log(currentWeather.daily);
-
 	return (
 		<div>
 			<h2>Weather in {currentWeather.place}</h2>

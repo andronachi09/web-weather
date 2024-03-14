@@ -83,6 +83,7 @@ export async function findCurrentWeatherLatLon(
                 current: data.current.temp,
                 feelsLike: data.current.feels_like
             },
+            windspeed: data.current.wind_speed,
             sunrise: new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: data.timezone }).format(new Date(data.current.sunrise * 1000)),
             sunset: new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: data.timezone }).format(new Date(data.current.sunset * 1000)),
             atmosphere: {

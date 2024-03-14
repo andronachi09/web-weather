@@ -48,6 +48,7 @@ export type CurrentWeather = {
         current: number,
         feelsLike: number;
     },
+    windspeed: number,
     sunrise: string,
     sunset: string,
     atmosphere: {
