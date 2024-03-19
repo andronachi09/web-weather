@@ -1,7 +1,8 @@
 import { useState } from 'react';
+
 import CityWeather from '../templates/CityWeather';
 import Header from '../templates/Header';
-import React from 'react';
+import WeatherLocation from '../templates/WeatherLocation';
 
 export default function MainView() {
 	const [longitude, setLongitude] = useState<number | null>(null);
@@ -18,6 +19,7 @@ export default function MainView() {
 			<div className='max-w-[1240px] w-full h-full mx-auto flex flex-col pt-4 gap-2'>
 				<Header onCoordinatesSelect={handleCoordinates} />
 				<CityWeather lat={latitude} lon={longitude} apiKey={apiKey} />
+				<WeatherLocation lat={latitude} lon={longitude} />
 			</div>
 		</div>
 	);
