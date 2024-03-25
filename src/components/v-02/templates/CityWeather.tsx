@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { CurrentWeather } from '../../../types/geocoding.types';
+import { useEffect, useState } from 'react';import { CurrentWeather } from '../../../types/geocoding.types';
 import { findCurrentWeatherLatLon } from '../../../hooks/useGeocoding';
 import {
 	Carousel,
@@ -84,7 +83,7 @@ export default function CityWeather({ lat, lon, apiKey }: CityWeatherProps) {
 								</p>
 							</div>
 						</div>
-						<div className='flex flex-row space-x-5 justify-evenly sm:flex sm:flex-row sm:justify-between'>
+						<div className='flex flex-row space-x-5 justify-evenly lg:flex lg:flex-row lg:justify-between'>
 							<div className='flex flex-col pt-2'>
 								<h2 className='text-2xl text-gray-200 m-1'>
 									{Math.round(
@@ -112,7 +111,7 @@ export default function CityWeather({ lat, lon, apiKey }: CityWeatherProps) {
 						</div>
 					</div>
 					<div className='py-10 flex flex-col justify-center'>
-						<Carousel className='max-w-6xl mx-6'>
+						<Carousel className='mx-6 lg:max-w-2xl'>
 							<CarouselContent>
 								{weatherInfo?.hourly.map((h, index) => (
 									<CarouselItem
