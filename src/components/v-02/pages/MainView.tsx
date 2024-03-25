@@ -1,5 +1,4 @@
 import { useState } from 'react';
-
 import CityWeather from '../templates/CityWeather';
 import Header from '../templates/Header';
 import WeatherLocation from '../templates/WeatherLocation';
@@ -18,8 +17,8 @@ export default function MainView() {
 		<div className='w-full h-screen bg-[#1E1F24]'>
 			<div className='max-w-[1240px] w-full h-full mx-auto flex flex-col pt-4 gap-2'>
 				<Header onCoordinatesSelect={handleCoordinates} />
-				<CityWeather lat={latitude} lon={longitude} apiKey={apiKey} />
-				<WeatherLocation lat={latitude} lon={longitude} />
+				<CityWeather lat={latitude!} lon={longitude!} apiKey={apiKey} />
+				<WeatherLocation lat={latitude!} lon={longitude!} />
 			</div>
 		</div>
 	);
