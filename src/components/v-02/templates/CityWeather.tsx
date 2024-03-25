@@ -111,7 +111,7 @@ export default function CityWeather({ lat, lon, apiKey }: CityWeatherProps) {
 						</div>
 					</div>
 					<div className='py-10 flex flex-col justify-center'>
-						<Carousel className='mx-6 lg:max-w-2xl'>
+						<Carousel className='mx-6 lg:max-w-3xl'>
 							<CarouselContent>
 								{weatherInfo?.hourly.map((h, index) => (
 									<CarouselItem
