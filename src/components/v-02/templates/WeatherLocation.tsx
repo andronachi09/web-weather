@@ -1,5 +1,4 @@
 import Map from 'react-map-gl';
-
 type WeatherLocationProps = {
 	lat: number;
 	lon: number;
@@ -19,6 +18,7 @@ export default function WeatherLocation({ lat, lon }: WeatherLocationProps) {
 				}}
 				style={{ width: 600, height: 400 }}
 				mapStyle='mapbox://styles/mapbox/dark-v11'
+				attributionControl={false}
 			/>
 		</div>
 	);
