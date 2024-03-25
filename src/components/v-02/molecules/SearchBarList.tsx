@@ -1,4 +1,3 @@
-import React from 'react';
 import { GeocodingResponse } from '../../../types/geocoding.types';
 import SearchResult from './SearchResult';
 

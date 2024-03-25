@@ -78,7 +78,7 @@ export default function SearchBar({
 	};
 
 	return (
-		<div className='relative m-2 flex justify-center'>
+		<div className='relative m-2 flex justify-center z-50'>
 			<InputField
 				type='text'
 				placeholder=' Search for city or location'
