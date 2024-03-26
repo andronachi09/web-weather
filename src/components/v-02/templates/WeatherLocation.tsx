@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
-import 'mapbox-gl/dist/mapbox-gl.css';
+import { useEffect, useRef, useState } from 'react';import 'mapbox-gl/dist/mapbox-gl.css';
 import Map from 'react-map-gl';
 
 type WeatherLocationProps = {
@@ -10,9 +9,10 @@ type WeatherLocationProps = {
 export default function WeatherLocation({ lat, lon }: WeatherLocationProps) {
 	const [mapKey, setMapKey] = useState<string>(`map-${lat}-${lon}`);
 	const mapContainerRef = useRef<HTMLDivElement>(null);
+	const apiKey: string = import.meta.env.VITE_MAPBOX_API_KEY;
 
 	useEffect(() => {
-		const resizeObserver = new ResizeObserver((entries) => {
+		const resizeObserver = new ResizeObserver(() => {
 			setMapKey(`map-${lat}-${lon}-${Date.now()}`);
 		});
 
@@ -34,7 +34,7 @@ export default function WeatherLocation({ lat, lon }: WeatherLocationProps) {
 		>
 			<Map
 				key={mapKey}
-				mapboxAccessToken='pk.eyJ1IjoiYW5kcm9uYWNoaTA5IiwiYSI6ImNsdHloamZsdjBlY3kya3Bqdmg0emFxY2QifQ.OUve52G6YcYxb1_v_s9_Hw'
+				mapboxAccessToken={apiKey}
 				initialViewState={{
 					longitude: lon,
 					latitude: lat,

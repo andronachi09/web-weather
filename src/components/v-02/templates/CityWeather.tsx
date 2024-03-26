@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';import { CurrentWeather } from '../../../types/geocoding.types';
+import { useEffect, useState } from 'react';
+import { CurrentWeather } from '../../../types/geocoding.types';
 import { findCurrentWeatherLatLon } from '../../../hooks/useGeocoding';
 import {
 	Carousel,
@@ -7,7 +8,6 @@ import {
 	CarouselNext,
 	CarouselPrevious,
 } from '@/components/ui/carousel';
-import Spinner from '../atoms/Spinner';
 
 type CityWeatherProps = {
 	lat: number;
@@ -18,7 +18,6 @@ type CityWeatherProps = {
 export default function CityWeather({ lat, lon, apiKey }: CityWeatherProps) {
 	const [weatherInfo, setWeatherInfo] = useState<CurrentWeather | null>(null);
 	const [error, setError] = useState('');
-	const [isLoading, setIsLoading] = useState<boolean>(false);
 
 	useEffect(() => {
 		if (lat == null && lon == null) {
@@ -26,7 +25,6 @@ export default function CityWeather({ lat, lon, apiKey }: CityWeatherProps) {
 		}
 
 		const fetchCurrentWeather = async () => {
-			setIsLoading(true);
 			try {
 				const fetchData = await findCurrentWeatherLatLon(
 					lat!,
@@ -35,26 +33,17 @@ export default function CityWeather({ lat, lon, apiKey }: CityWeatherProps) {
 				);
 				if ('statusCode' in fetchData) {
 					setError(`Error: ${fetchData.messageError}!`);
-					setIsLoading(false);
 				} else {
 					setWeatherInfo(fetchData);
 					setError('');
-					setIsLoading(false);
 				}
 			} catch (error) {
 				setError(`Failed to obtain data: ${error}`);
-				setIsLoading(false);
 			}
 		};
 
 		fetchCurrentWeather();
 	}, [lat, lon, apiKey]);
-
-	if (isLoading) {
-		return (
-			<Spinner className='animate-spin rounded-full h-8 w-8 border-b-2 border-[#C6E6E8]' />
-		);
-	}
 
 	return (
 		<div>
