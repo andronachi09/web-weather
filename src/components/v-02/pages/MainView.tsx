@@ -1,8 +1,10 @@
-import { useState } from 'react';import CityWeather from '../templates/CityWeather';
+import { useState } from 'react';
+import CityWeather from '../templates/CityWeather';
 import Header from '../templates/Header';
 import WeatherLocation from '../templates/WeatherLocation';
 import LineChart from '@/components/v-02/templates/Chart';
 import { CurrentWeather } from '@/types/geocoding.types';
+import Forecast from '../templates/Forecast';
 
 export default function MainView() {
 	const [longitude, setLongitude] = useState<number | null>(null);
@@ -41,8 +43,13 @@ export default function MainView() {
 						</div>
 					)}
 					{currentWeather && (
-						<div className='w-full lg:w-2/3 min-h-[450px]'>
-							<LineChart currentWeather={currentWeather} />
+						<div className='flex flex-col gap-2 h-fit lg:flex lg:flex-row'>
+							<div className='w-full lg:w-2/3 min-h-[350px]'>
+								<LineChart currentWeather={currentWeather} />
+							</div>
+							<div className='w-full lg:w-1/3 min-h-[350px]'>
+								<Forecast currentWeather={currentWeather} />
+							</div>
 						</div>
 					)}
 				</div>

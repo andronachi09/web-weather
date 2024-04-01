@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { CurrentWeather } from '../../../types/geocoding.types';
+import { useEffect, useState } from 'react';import { CurrentWeather } from '../../../types/geocoding.types';
 import { findCurrentWeatherLatLon } from '../../../hooks/useGeocoding';
 import {
 	Carousel,
@@ -51,8 +50,6 @@ export default function CityWeather({
 
 		fetchCurrentWeather();
 	}, [lat, lon, apiKey]);
-
-	console.log(weatherInfo);
 
 	return (
 		<div>

@@ -1,5 +1,4 @@
-export type GeocodingResponse = {
-    name: string,
+export type GeocodingResponse = {    name: string,
     country: string,
     state: string,
     lat: number,
@@ -38,6 +37,12 @@ export type CurrentWeatherResponseApi = {
             max: number;
         },
         summary: string;
+        weather: [{
+            id: string,
+            main: string,
+            description: string,
+            icon: string
+        }];
     }];
     hourly: [{
         dt: number,
@@ -52,38 +57,39 @@ export type CurrentWeatherResponseApi = {
 };
 
 export type CurrentWeather = {
-    place?: string,
-    timezone: string,
-    temperature: {
-        current: number,
-        feelsLike: number;
-    },
-    windspeed: number,
-    sunrise: string,
-    sunset: string,
-    atmosphere: {
-        clouds: number,
-        pressure: number,
-        humidity: number;
-    },
-    weatherDescription: Array<{
-        id: number,
-        main: string,
-        description: string,
-        icon: string;
-    }>;
-    daily: Array<{
-        dt: number,
-        maxTemp: number,
-        minTemp: number,
-        humidity: number,
-        uvi: number,
-        pressure: number,
-        summary: string;
-    }>
-    hourly: Array<{
-        time: string,
-        temperature: number,
+	place?: string;
+	timezone: string;
+	temperature: {
+		current: number;
+		feelsLike: number;
+	};
+	windspeed: number;
+	sunrise: string;
+	sunset: string;
+	atmosphere: {
+		clouds: number;
+		pressure: number;
+		humidity: number;
+	};
+	weatherDescription: Array<{
+		id: number;
+		main: string;
+		description: string;
+		icon: string;
+	}>;
+	daily: Array<{
+		dt: number;
+		maxTemp: number;
+		minTemp: number;
+		humidity: number;
+		uvi: number;
+		pressure: number;
+		summary: string;
         icon: string[];
-    }>
+	}>;
+	hourly: Array<{
+		time: string;
+		temperature: number;
+		icon: string[];
+	}>;
 };

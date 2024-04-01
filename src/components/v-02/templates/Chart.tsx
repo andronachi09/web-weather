@@ -104,7 +104,7 @@ export default function LineChart({ currentWeather }: ChartProps) {
 
 	return (
 		<>
-			<div className='p-6 rounded-xl bg-[#2E2E38]'>
+			<div className='p-6 rounded-xl bg-[#2E2E38] h-full'>
 				<div className='flex flex-col justify-between items-center gap-2 sm:flex sm:flex-row'>
 					<div>
 						<h1 className='text-3xl text-gray-200 flex justify-center'>
