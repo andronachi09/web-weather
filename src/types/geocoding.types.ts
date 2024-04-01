@@ -33,7 +33,6 @@ export type CurrentWeatherResponseApi = {
         humidity: number
         uvi: number
         pressure: number
-        rain: number
         temp: {
             min: number,
             max: number;
@@ -79,7 +78,6 @@ export type CurrentWeather = {
         minTemp: number,
         humidity: number,
         uvi: number,
-        rainfall: number,
         pressure: number,
         summary: string;
     }>

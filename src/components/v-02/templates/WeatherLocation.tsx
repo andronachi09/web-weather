@@ -30,7 +30,7 @@ export default function WeatherLocation({ lat, lon }: WeatherLocationProps) {
 	return (
 		<div
 			ref={mapContainerRef}
-			className='p-6 bg-[#2E2E38] rounded-xl w-full h-full z-0'
+			className='p-6 bg-[#2E2E38] rounded-xl min-h-[350px] w-full h-full z-0'
 		>
 			<Map
 				key={mapKey}

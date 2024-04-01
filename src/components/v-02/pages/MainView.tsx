@@ -18,28 +18,35 @@ export default function MainView() {
 	};
 
 	return (
-		<div className='w-full h-screen bg-[#1E1F24]'>
-			<div className='max-w-[1240px] w-full h-full mx-auto flex flex-col pt-4 gap-2'>
-				<Header onCoordinatesSelect={handleCoordinates} />
-				{latitude && longitude && (
-					<div className='flex flex-col gap-2  h-fit lg:flex lg:flex-row'>
-						<div className='w-full lg:w-2/3 min-h-[350px]'>
-							<CityWeather
-								lat={latitude!}
-								lon={longitude!}
-								apiKey={apiKey}
-								setWeatherData={setCurrentWeather}
-							/>
+		<>
+			<div className='w-full h-screen'>
+				<div className='max-w-[1240px] w-full h-full mx-auto flex flex-col pt-4 gap-2'>
+					<Header onCoordinatesSelect={handleCoordinates} />
+					{latitude && longitude && (
+						<div className='flex flex-col gap-2  h-fit lg:flex lg:flex-row'>
+							<div className='w-full lg:w-2/3 min-h-[350px]'>
+								<CityWeather
+									lat={latitude!}
+									lon={longitude!}
+									apiKey={apiKey}
+									setWeatherData={setCurrentWeather}
+								/>
+							</div>
+							<div className='w-full lg:w-1/3 min-h-[350px]'>
+								<WeatherLocation
+									lat={latitude!}
+									lon={longitude!}
+								/>
+							</div>
 						</div>
-						<div className='w-full lg:w-1/3 min-h-[350px]'>
-							<WeatherLocation lat={latitude!} lon={longitude!} />
+					)}
+					{currentWeather && (
+						<div className='w-full lg:w-2/3 min-h-[450px]'>
+							<LineChart currentWeather={currentWeather} />
 						</div>
-					</div>
-				)}
-				<div className='w-full min-h-[450px]'>
-					<LineChart currentWeather={currentWeather} />
+					)}
 				</div>
 			</div>
-		</div>
+		</>
 	);
 }

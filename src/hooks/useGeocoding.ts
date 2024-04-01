@@ -103,7 +103,6 @@ export async function findCurrentWeatherLatLon(
                 minTemp: day.temp.min,
                 humidity: day.humidity,
                 uvi: day.uvi,
-                rainfall: day.rain,
                 pressure: day.pressure,
                 summary: day.summary
             })),

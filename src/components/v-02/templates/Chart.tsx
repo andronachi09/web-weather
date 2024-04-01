@@ -42,7 +42,6 @@ type ChartData = {
 enum Metrics {
 	Humidity = 'humidity',
 	UVIndex = 'uvi',
-	Rainfall = 'rainfall',
 	Pressure = 'pressure',
 }
 
@@ -76,7 +75,13 @@ export default function LineChart({ currentWeather }: ChartProps) {
 
 	const options = {
 		responsive: true,
+		legend: {
+			display: false,
+		},
 		plugins: {
+			legend: {
+				display: false,
+			},
 			tooltip: {
 				mode: 'index',
 				intersect: false,
@@ -85,6 +90,14 @@ export default function LineChart({ currentWeather }: ChartProps) {
 		scales: {
 			y: {
 				beginAtZero: true,
+				ticks: {
+					color: '#C6E6E8',
+				},
+			},
+			x: {
+				ticks: {
+					color: '#C6E6E8',
+				},
 			},
 		},
 	};
@@ -92,30 +105,28 @@ export default function LineChart({ currentWeather }: ChartProps) {
 	return (
 		<>
 			<div className='p-6 rounded-xl bg-[#2E2E38]'>
-				<div className='flex flex-col justify-between gap-2'>
+				<div className='flex flex-col justify-between items-center gap-2 sm:flex sm:flex-row'>
 					<div>
 						<h1 className='text-3xl text-gray-200 flex justify-center'>
 							Overview
 						</h1>
 					</div>
-					<div className='flex flex-row justify-center gap-4 text-gray-200 py-3'>
+					<div className='flex flex-row w-64 justify-center py-1 mb-2 bg-[#1e1f24] rounded-3xl sm:px-2'>
 						<Button
 							onClick={() => handleButtonClick(Metrics.Humidity)}
+							className='text-[#C6E6E8] p-2 rounded-3xl hover:bg-[#C6E6E8] hover:text-black hover:rounded-3xl transition duration-500 ease-in-out'
 						>
 							Humidity
 						</Button>
 						<Button
 							onClick={() => handleButtonClick(Metrics.UVIndex)}
+							className='text-[#C6E6E8] p-2 rounded-3xl hover:bg-[#C6E6E8] hover:text-black hover:rounded-3xl transition duration-500 ease-in-out'
 						>
 							UV Index
 						</Button>
 						<Button
-							onClick={() => handleButtonClick(Metrics.Rainfall)}
-						>
-							Rainfall
-						</Button>
-						<Button
 							onClick={() => handleButtonClick(Metrics.Pressure)}
+							className='text-[#C6E6E8] p-2 rounded-3xl hover:bg-[#C6E6E8] hover:text-black hover:rounded-3xl transition duration-500 ease-in-out'
 						>
 							Pressure
 						</Button>
