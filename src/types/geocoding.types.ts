@@ -29,6 +29,11 @@ export type CurrentWeatherResponseApi = {
         }];
     };
     daily: [{
+        dt: number
+        humidity: number
+        uvi: number
+        pressure: number
+        rain: number
         temp: {
             min: number,
             max: number;
@@ -69,8 +74,13 @@ export type CurrentWeather = {
         icon: string;
     }>;
     daily: Array<{
+        dt: number,
         maxTemp: number,
         minTemp: number,
+        humidity: number,
+        uvi: number,
+        rainfall: number,
+        pressure: number,
         summary: string;
     }>
     hourly: Array<{

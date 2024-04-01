@@ -1,11 +1,15 @@
-import { useState } from 'react';
-import CityWeather from '../templates/CityWeather';
+import { useState } from 'react';import CityWeather from '../templates/CityWeather';
 import Header from '../templates/Header';
 import WeatherLocation from '../templates/WeatherLocation';
+import LineChart from '@/components/v-02/templates/Chart';
+import { CurrentWeather } from '@/types/geocoding.types';
 
 export default function MainView() {
 	const [longitude, setLongitude] = useState<number | null>(null);
 	const [latitude, setLatitude] = useState<number | null>(null);
+	const [currentWeather, setCurrentWeather] = useState<CurrentWeather | null>(
+		null,
+	);
 	const apiKey: string = import.meta.env.VITE_WEATHER_API_KEY;
 
 	const handleCoordinates = (lat: number, lon: number) => {
@@ -24,6 +28,7 @@ export default function MainView() {
 								lat={latitude!}
 								lon={longitude!}
 								apiKey={apiKey}
+								setWeatherData={setCurrentWeather}
 							/>
 						</div>
 						<div className='w-full lg:w-1/3 min-h-[350px]'>
@@ -31,6 +36,9 @@ export default function MainView() {
 						</div>
 					</div>
 				)}
+				<div className='w-full min-h-[450px]'>
+					<LineChart currentWeather={currentWeather} />
+				</div>
 			</div>
 		</div>
 	);

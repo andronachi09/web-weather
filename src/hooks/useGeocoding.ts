@@ -98,8 +98,13 @@ export async function findCurrentWeatherLatLon(
                 icon: curr.icon
             })),
             daily: data.daily.map(day => ({
+                dt: day.dt,
                 maxTemp: day.temp.max,
                 minTemp: day.temp.min,
+                humidity: day.humidity,
+                uvi: day.uvi,
+                rainfall: day.rain,
+                pressure: day.pressure,
                 summary: day.summary
             })),
             hourly: data.hourly.map(hour => ({

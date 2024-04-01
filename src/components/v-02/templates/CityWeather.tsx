@@ -13,9 +13,15 @@ type CityWeatherProps = {
 	lat: number;
 	lon: number;
 	apiKey: string;
+	setWeatherData: (weather: CurrentWeather) => void;
 };
 
-export default function CityWeather({ lat, lon, apiKey }: CityWeatherProps) {
+export default function CityWeather({
+	lat,
+	lon,
+	apiKey,
+	setWeatherData,
+}: CityWeatherProps) {
 	const [weatherInfo, setWeatherInfo] = useState<CurrentWeather | null>(null);
 	const [error, setError] = useState('');
 
@@ -35,6 +41,7 @@ export default function CityWeather({ lat, lon, apiKey }: CityWeatherProps) {
 					setError(`Error: ${fetchData.messageError}!`);
 				} else {
 					setWeatherInfo(fetchData);
+					setWeatherData(fetchData); //for parent component
 					setError('');
 				}
 			} catch (error) {
@@ -44,6 +51,8 @@ export default function CityWeather({ lat, lon, apiKey }: CityWeatherProps) {
 
 		fetchCurrentWeather();
 	}, [lat, lon, apiKey]);
+
+	console.log(weatherInfo);
 
 	return (
 		<div>
