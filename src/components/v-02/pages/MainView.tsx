@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import CityWeather from '../templates/CityWeather';
+import { useState } from 'react';import CityWeather from '../templates/CityWeather';
 import Header from '../templates/Header';
 import WeatherLocation from '../templates/WeatherLocation';
 import LineChart from '@/components/v-02/templates/Chart';
@@ -25,8 +24,8 @@ export default function MainView() {
 				<div className='max-w-[1240px] w-full h-full mx-auto flex flex-col pt-4 gap-2'>
 					<Header onCoordinatesSelect={handleCoordinates} />
 					{latitude && longitude && (
-						<div className='flex flex-col gap-2  h-fit lg:flex lg:flex-row'>
-							<div className='w-full lg:w-2/3 min-h-[350px]'>
+						<div className='flex flex-col gap-2 h-fit lg:flex lg:flex-row'>
+							<div className='lg:w-2/3 min-h-[350px]'>
 								<CityWeather
 									lat={latitude!}
 									lon={longitude!}
@@ -34,7 +33,7 @@ export default function MainView() {
 									setWeatherData={setCurrentWeather}
 								/>
 							</div>
-							<div className='w-full lg:w-1/3 min-h-[350px]'>
+							<div className='lg:w-1/3 min-h-[350px]'>
 								<WeatherLocation
 									lat={latitude!}
 									lon={longitude!}
@@ -43,11 +42,11 @@ export default function MainView() {
 						</div>
 					)}
 					{currentWeather && (
-						<div className='flex flex-col gap-2 h-fit lg:flex lg:flex-row'>
-							<div className='w-full lg:w-2/3 min-h-[350px]'>
+						<div className='flex flex-col gap-2 h-fit lg:flex lg:flex-row pb-5'>
+							<div className='lg:w-2/3 lg:min-h-[350px]'>
 								<LineChart currentWeather={currentWeather} />
 							</div>
-							<div className='w-full lg:w-1/3 min-h-[350px]'>
+							<div className='lg:w-1/3 min-h-[350px]'>
 								<Forecast currentWeather={currentWeather} />
 							</div>
 						</div>

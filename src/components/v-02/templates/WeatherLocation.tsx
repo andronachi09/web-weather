@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';import 'mapbox-gl/dist/mapbox-gl.css';
+import { useEffect, useRef, useState } from 'react';
+import 'mapbox-gl/dist/mapbox-gl.css';
 import Map from 'react-map-gl';
 
 type WeatherLocationProps = {
@@ -30,7 +31,7 @@ export default function WeatherLocation({ lat, lon }: WeatherLocationProps) {
 	return (
 		<div
 			ref={mapContainerRef}
-			className='p-6 bg-[#2E2E38] rounded-xl min-h-[350px] w-full h-full z-0'
+			className='p-6 bg-[#2E2E38] rounded-xl min-h-[350px] w-full h-full'
 		>
 			<Map
 				key={mapKey}

@@ -90,7 +90,7 @@ export default function SearchBar({
 				<Button
 					onClick={() => setInputText('')}
 					type='button'
-					className='absolute inset-y-0 right-0 px-3 flex items-center text-[#1E1F24] hover:text-[#C6E6E8]'
+					className='absolute inset-y-0 right-0 pr-6 lg:px-3 flex items-center text-[#1E1F24] hover:text-[#C6E6E8]'
 				>
 					<span className='text-base'>X</span>
 				</Button>

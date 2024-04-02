@@ -106,14 +106,14 @@ export default function CityWeather({
 						</div>
 					</div>
 					<div className='py-10 flex flex-col justify-center'>
-						<Carousel className='mx-6 lg:max-w-3xl'>
+						<Carousel className='px-10 lg:max-w-3xl'>
 							<CarouselContent>
 								{weatherInfo?.hourly.map((h, index) => (
 									<CarouselItem
 										key={index}
-										className='basis-1/7'
+										className='basis-1/11'
 									>
-										<div className='rounded-3xl bg-[#C6E6E8] w-28 p-4 flex flex-col items-center'>
+										<div className='rounded-3xl bg-[#C6E6E8] w-24 p-4 flex flex-col items-center'>
 											<h2>{h.time}</h2>
 											<img
 												src={`https://openweathermap.org/img/wn/${h.icon}@2x.png`}
@@ -127,8 +127,8 @@ export default function CityWeather({
 									</CarouselItem>
 								))}
 							</CarouselContent>
-							<CarouselPrevious className='ml-2' />
-							<CarouselNext className='mr-2' />
+							<CarouselPrevious className='ml-10' />
+							<CarouselNext className='mr-10' />
 						</Carousel>
 					</div>
 				</div>
