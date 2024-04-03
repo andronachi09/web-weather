@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';import { CurrentWeather } from '../../../types/geocoding.types';
-import { findCurrentWeatherLatLon } from '../../../hooks/useGeocoding';
+import { useContext } from 'react';import { WeatherContext } from '@/store/weatherContext';
 import {
 	Carousel,
 	CarouselContent,
@@ -8,58 +7,20 @@ import {
 	CarouselPrevious,
 } from '@/components/ui/carousel';
 
-type CityWeatherProps = {
-	lat: number;
-	lon: number;
-	apiKey: string;
-	setWeatherData: (weather: CurrentWeather) => void;
-};
-
-export default function CityWeather({
-	lat,
-	lon,
-	apiKey,
-	setWeatherData,
-}: CityWeatherProps) {
-	const [weatherInfo, setWeatherInfo] = useState<CurrentWeather | null>(null);
-	const [error, setError] = useState('');
-
-	useEffect(() => {
-		if (lat == null && lon == null) {
-			return;
-		}
-
-		const fetchCurrentWeather = async () => {
-			try {
-				const fetchData = await findCurrentWeatherLatLon(
-					lat!,
-					lon!,
-					apiKey!,
-				);
-				if ('statusCode' in fetchData) {
-					setError(`Error: ${fetchData.messageError}!`);
-				} else {
-					setWeatherInfo(fetchData);
-					setWeatherData(fetchData); //for parent component
-					setError('');
-				}
-			} catch (error) {
-				setError(`Failed to obtain data: ${error}`);
-			}
-		};
-
-		fetchCurrentWeather();
-	}, [lat, lon, apiKey]);
+export default function CityWeather() {
+	const weather = useContext(WeatherContext);
 
 	return (
 		<div>
-			{error && <p className='bg-grey-500 text-red-500'>{error}</p>}
-			{weatherInfo ? (
+			{weather?.error && (
+				<p className='bg-grey-500 text-red-500'>{weather.error}</p>
+			)}
+			{weather?.weather ? (
 				<div className='flex flex-col justify-start p-6 rounded-xl bg-[#2E2E38]'>
 					<div className='flex flex-col space-x-5 justify-evenly sm:flex sm:flex-row sm:justify-evenly'>
 						<div className='flex flex-row'>
 							<div>
-								{weatherInfo?.weatherDescription.map(
+								{weather.weather?.weatherDescription.map(
 									(weather) => (
 										<img
 											key={weather.id}
@@ -71,10 +32,10 @@ export default function CityWeather({
 							</div>
 							<div className='flex flex-col pt-2'>
 								<h2 className='text-2xl text-gray-200 m-1'>
-									{weatherInfo?.place}
+									{weather.weather?.place}
 								</h2>
 								<p className='text-xl text-gray-100 m-1'>
-									Timezone: {weatherInfo?.timezone}
+									Timezone: {weather.weather?.timezone}
 								</p>
 							</div>
 						</div>
@@ -82,7 +43,7 @@ export default function CityWeather({
 							<div className='flex flex-col pt-2'>
 								<h2 className='text-2xl text-gray-200 m-1'>
 									{Math.round(
-										weatherInfo?.temperature
+										weather.weather?.temperature
 											.current as number,
 									)}
 									°
@@ -91,14 +52,14 @@ export default function CityWeather({
 							</div>
 							<div className='flex flex-col pt-2'>
 								<h2 className='text-2xl text-gray-200 m-1 flex flex-row'>
-									{weatherInfo?.atmosphere.humidity}
+									{weather.weather?.atmosphere.humidity}
 									<p className='text-sm pt-2.5'>%</p>
 								</h2>
 								<p className='text-gray-100 m-1'>Humidity</p>
 							</div>
 							<div className='flex flex-col pt-2'>
 								<h2 className='text-2xl text-gray-200 m-1 flex flex-row'>
-									{weatherInfo?.windspeed}
+									{weather.weather?.windspeed}
 									<p className='text-sm pt-2.5'>km/h</p>
 								</h2>
 								<p className='text-gray-100 m-1'>Wind speed</p>
@@ -108,7 +69,7 @@ export default function CityWeather({
 					<div className='py-10 flex flex-col justify-center'>
 						<Carousel className='px-10 lg:max-w-3xl'>
 							<CarouselContent>
-								{weatherInfo?.hourly.map((h, index) => (
+								{weather.weather?.hourly.map((h, index) => (
 									<CarouselItem
 										key={index}
 										className='basis-1/11'
@@ -133,7 +94,7 @@ export default function CityWeather({
 					</div>
 				</div>
 			) : (
-				!error && <h1></h1>
+				!weather?.error && <h1></h1>
 			)}
 		</div>
 	);

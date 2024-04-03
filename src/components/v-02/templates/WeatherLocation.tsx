@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import 'mapbox-gl/dist/mapbox-gl.css';
 import Map from 'react-map-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 type WeatherLocationProps = {
 	lat: number;

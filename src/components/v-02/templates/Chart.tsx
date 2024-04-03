@@ -1,3 +1,4 @@
+import { useContext, useState } from 'react';
 import {
 	Chart as ChartJS,
 	CategoryScale,
@@ -11,8 +12,7 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import Button from '../atoms/Button';
-import { CurrentWeather } from '@/types/geocoding.types';
-import { useState } from 'react';
+import { WeatherContext } from '@/store/weatherContext';
 
 ChartJS.register(
 	CategoryScale,
@@ -23,10 +23,6 @@ ChartJS.register(
 	Tooltip,
 	Legend,
 );
-
-type ChartProps = {
-	currentWeather: CurrentWeather | null;
-};
 
 type ChartData = {
 	labels: string[] | undefined;
@@ -45,17 +41,18 @@ enum Metrics {
 	Pressure = 'pressure',
 }
 
-export default function LineChart({ currentWeather }: ChartProps) {
+export default function LineChart() {
 	const [selectedMetrics, setSelectedMetrics] = useState<Metrics>(
 		Metrics.Humidity,
 	);
+	const weather = useContext(WeatherContext);
 
 	const handleButtonClick = (metric: Metrics) => {
 		setSelectedMetrics(metric);
 	};
 
 	const representData: ChartData = {
-		labels: currentWeather?.daily.map((day) =>
+		labels: weather?.weather?.daily.map((day) =>
 			new Date(day.dt * 1000).toDateString(),
 		),
 		datasets: [
@@ -63,7 +60,7 @@ export default function LineChart({ currentWeather }: ChartProps) {
 				label:
 					selectedMetrics.charAt(0).toUpperCase() +
 					selectedMetrics.slice(1),
-				data: currentWeather?.daily.map(
+				data: weather?.weather?.daily.map(
 					(day) => day[selectedMetrics] as number,
 				),
 				fill: false,

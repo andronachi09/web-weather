@@ -1,5 +1,3 @@
-import React from 'react';
-
 type SearchResultProps = {
 	name: string;
 	country: string;
