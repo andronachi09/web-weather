@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
-import Map from 'react-map-gl';
+import { useEffect, useRef, useState } from 'react';import Map from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 type WeatherLocationProps = {
-	lat: number;
-	lon: number;
+	lat: number | null;
+	lon: number | null;
 };
 
 export default function WeatherLocation({ lat, lon }: WeatherLocationProps) {

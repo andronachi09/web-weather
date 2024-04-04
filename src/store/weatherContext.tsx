@@ -1,5 +1,4 @@
-import { ReactNode, createContext, useEffect, useState } from 'react';
-import { findCurrentWeatherLatLon } from '@/hooks/useGeocoding';
+import { ReactNode, createContext, useEffect, useState } from 'react';import { findCurrentWeatherLatLon } from '@/hooks/useGeocoding';
 import { CurrentWeather } from '@/types/geocoding.types';
 
 type WeatherContextType = {
@@ -13,8 +12,8 @@ export const WeatherContext = createContext<WeatherContextType | null>(null);
 
 type WeatherProviderProps = {
 	children?: ReactNode;
-	lat: number | null;
-	lon: number | null;
+	lat: number;
+	lon: number;
 	apiKey: string;
 };
 
@@ -52,8 +51,6 @@ export const WeatherProvider = ({
 
 		fetchCurrentWeather();
 	}, [lat, lon, apiKey]);
-
-	console.log(weather);
 
 	return (
 		<WeatherContext.Provider

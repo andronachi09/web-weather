@@ -1,15 +1,13 @@
-import { GeocodingResponse } from '../../../types/geocoding.types';
 import SearchResult from './SearchResult';
+import { GeocodingResponse } from '../../../../types/geocoding.types';
 
 type SearchBarListProps = {
 	locations: GeocodingResponse[];
-	onCoordinatesSelect: (lat: number, lon: number) => void;
 	onClose: () => void;
 };
 
 export default function SearchBarList({
 	locations,
-	onCoordinatesSelect,
 	onClose,
 }: SearchBarListProps) {
 	return (
@@ -26,7 +24,6 @@ export default function SearchBarList({
 						state={state}
 						lat={lat}
 						lon={lon}
-						onClick={onCoordinatesSelect}
 						onClose={onClose}
 					/>
 				</li>
