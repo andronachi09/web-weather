@@ -1,4 +1,5 @@
-import { useContext } from 'react';import { WeatherContext } from '@/store/weatherContext';
+import { useContext } from 'react';
+import { WeatherContext } from '@/store/weatherContext';
 import {
 	Carousel,
 	CarouselContent,
@@ -8,19 +9,21 @@ import {
 } from '@/components/ui/carousel';
 
 export default function CityWeather() {
-	const weather = useContext(WeatherContext);
+	const weatherContext = useContext(WeatherContext);
 
 	return (
 		<div>
-			{weather?.error && (
-				<p className='bg-grey-500 text-red-500'>{weather.error}</p>
+			{weatherContext?.error && (
+				<p className='bg-grey-500 text-red-500'>
+					{weatherContext.error}
+				</p>
 			)}
-			{weather?.weather ? (
+			{weatherContext?.weather ? (
 				<div className='flex flex-col justify-start p-6 rounded-xl bg-[#2E2E38]'>
 					<div className='flex flex-col space-x-5 justify-evenly sm:flex sm:flex-row sm:justify-evenly'>
 						<div className='flex flex-row'>
 							<div>
-								{weather.weather?.weatherDescription.map(
+								{weatherContext.weather?.weatherDescription.map(
 									(weather) => (
 										<img
 											key={weather.id}
@@ -32,10 +35,10 @@ export default function CityWeather() {
 							</div>
 							<div className='flex flex-col pt-2'>
 								<h2 className='text-2xl text-gray-200 m-1'>
-									{weather.weather?.place}
+									{weatherContext.weather?.place}
 								</h2>
 								<p className='text-xl text-gray-100 m-1'>
-									Timezone: {weather.weather?.timezone}
+									Timezone: {weatherContext.weather?.timezone}
 								</p>
 							</div>
 						</div>
@@ -43,7 +46,7 @@ export default function CityWeather() {
 							<div className='flex flex-col pt-2'>
 								<h2 className='text-2xl text-gray-200 m-1'>
 									{Math.round(
-										weather.weather?.temperature
+										weatherContext.weather?.temperature
 											.current as number,
 									)}
 									°
@@ -52,14 +55,17 @@ export default function CityWeather() {
 							</div>
 							<div className='flex flex-col pt-2'>
 								<h2 className='text-2xl text-gray-200 m-1 flex flex-row'>
-									{weather.weather?.atmosphere.humidity}
+									{
+										weatherContext.weather?.atmosphere
+											.humidity
+									}
 									<p className='text-sm pt-2.5'>%</p>
 								</h2>
 								<p className='text-gray-100 m-1'>Humidity</p>
 							</div>
 							<div className='flex flex-col pt-2'>
 								<h2 className='text-2xl text-gray-200 m-1 flex flex-row'>
-									{weather.weather?.windspeed}
+									{weatherContext.weather?.windspeed}
 									<p className='text-sm pt-2.5'>km/h</p>
 								</h2>
 								<p className='text-gray-100 m-1'>Wind speed</p>
@@ -69,24 +75,26 @@ export default function CityWeather() {
 					<div className='py-10 flex flex-col justify-center'>
 						<Carousel className='px-10 lg:max-w-3xl'>
 							<CarouselContent>
-								{weather.weather?.hourly.map((h, index) => (
-									<CarouselItem
-										key={index}
-										className='basis-1/11'
-									>
-										<div className='rounded-3xl bg-[#C6E6E8] w-24 p-4 flex flex-col items-center'>
-											<h2>{h.time}</h2>
-											<img
-												src={`https://openweathermap.org/img/wn/${h.icon}@2x.png`}
-												alt={'Weather Icon'}
-												className='w-16 h-16'
-											/>
-											<h2>
-												{Math.round(h.temperature)}°
-											</h2>
-										</div>
-									</CarouselItem>
-								))}
+								{weatherContext.weather?.hourly.map(
+									(h, index) => (
+										<CarouselItem
+											key={index}
+											className='basis-1/11'
+										>
+											<div className='rounded-3xl bg-[#C6E6E8] w-24 p-4 flex flex-col items-center'>
+												<h2>{h.time}</h2>
+												<img
+													src={`https://openweathermap.org/img/wn/${h.icon}@2x.png`}
+													alt={'Weather Icon'}
+													className='w-16 h-16'
+												/>
+												<h2>
+													{Math.round(h.temperature)}°
+												</h2>
+											</div>
+										</CarouselItem>
+									),
+								)}
 							</CarouselContent>
 							<CarouselPrevious className='ml-10' />
 							<CarouselNext className='mr-10' />
@@ -94,7 +102,7 @@ export default function CityWeather() {
 					</div>
 				</div>
 			) : (
-				!weather?.error && <h1></h1>
+				!weatherContext?.error && <h1></h1>
 			)}
 		</div>
 	);

@@ -1,5 +1,4 @@
-import { useContext } from 'react';
-import CityWeather from '../templates/CityWeather';
+import { useContext } from 'react';import CityWeather from '../templates/CityWeather';
 import Header from '../templates/Header';
 import WeatherLocation from '../templates/WeatherLocation';
 import LineChart from '@/components/v-02/templates/Chart';
@@ -26,16 +25,7 @@ export default function MainView() {
 								<CityWeather />
 							</div>
 							<div className='lg:w-1/3 min-h-[350px]'>
-								<WeatherLocation
-									lat={
-										searchContext?.selectedLocation
-											?.lat as number
-									}
-									lon={
-										searchContext?.selectedLocation
-											?.lon as number
-									}
-								/>
+								<WeatherLocation />
 							</div>
 						</div>
 						<div className='flex flex-col gap-2 h-fit lg:flex lg:flex-row pb-5'>
