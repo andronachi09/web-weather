@@ -1,80 +1,17 @@
-import { useEffect, useState } from 'react';
-
-import { findLocationByGeocoding } from '../../../hooks/useGeocoding';
+import { useContext } from 'react';import { SearchContext } from '@/store/searchContext';
 
 import InputField from '../atoms/InputField';
 import ErrorMessage from '../atoms/ErrorMessage';
-import SearchBarList from '../molecules/SearchBarList';
+import SearchBarList from '../molecules/SearchBarMolecules/SearchBarList';
 import Button from '../atoms/Button';
 import Spinner from '../atoms/Spinner';
 
-import { validateAndSanitizeSearchInput } from '../../../utils/validateSearchInput';
-import { GeocodingResponse } from '../../../types/geocoding.types';
-
-type SearchBarProps = {
-	apiKey: string;
-	onCoordinatesSelect: (lat: number, lon: number) => void;
-};
-
-export default function SearchBar({
-	apiKey,
-	onCoordinatesSelect,
-}: SearchBarProps) {
-	const [inputText, setInputText] = useState<string>('');
-	const [locations, setLocations] = useState<GeocodingResponse[]>([]);
-	const [error, setError] = useState<string>('');
-	const [isLoading, setIsLoading] = useState<boolean>(false);
-
-	useEffect(() => {
-		const fetchLocations = async () => {
-			const { message, isValid } =
-				validateAndSanitizeSearchInput(inputText);
-
-			if (!isValid) {
-				setError(message);
-				setLocations([]);
-				setIsLoading(false);
-				return;
-			}
-
-			try {
-				const fetchResponse = await findLocationByGeocoding(
-					message,
-					10,
-					apiKey,
-				);
-				if ('statusCode' in fetchResponse) {
-					return error;
-				} else if (!fetchResponse || fetchResponse.length === 0) {
-					setError('No results have been found');
-					setLocations([]);
-					setIsLoading(false);
-				} else {
-					setLocations(fetchResponse);
-					setError('');
-					setIsLoading(false);
-				}
-			} catch (error) {
-				/* empty */
-			}
-		};
-
-		if (inputText) {
-			setIsLoading(true);
-			const debounce = setTimeout(fetchLocations, 500);
-			return () => {
-				clearTimeout(debounce);
-			};
-		} else {
-			setLocations([]);
-			setError('');
-			setIsLoading(false);
-		}
-	}, [inputText]);
+export default function SearchBar() {
+	const searchContext = useContext(SearchContext);
 
 	const handleEmptyLocationsList = () => {
-		setInputText('');
-		setLocations([]);
+		searchContext?.setInputText('');
+		searchContext?.setLocations([]);
 	};
 
 	return (
@@ -82,29 +19,28 @@ export default function SearchBar({
 			<InputField
 				type='text'
 				placeholder=' Search for city or location'
-				value={inputText}
-				onChange={(e) => setInputText(e.target.value)}
+				value={searchContext?.inputText}
+				onChange={(e) => searchContext?.setInputText(e.target.value)}
 				className='rounded-xl p-2 outline-none w-80 text-base'
 			/>
-			{inputText && (
+			{searchContext?.inputText && (
 				<Button
-					onClick={() => setInputText('')}
+					onClick={() => searchContext?.setInputText('')}
 					type='button'
 					className='absolute inset-y-0 right-0 pr-6 lg:px-3 flex items-center text-[#1E1F24] hover:text-[#C6E6E8]'
 				>
 					<span className='text-base'>X</span>
 				</Button>
 			)}
-			{inputText ? (
+			{searchContext?.inputText ? (
 				<div className='absolute w-full top-9 bg-white shadow-md max-h-100 overflow-y-auto mt-1 border border-gray-200 rounded-xl'>
-					{isLoading ? (
+					{searchContext.isLoading ? (
 						<Spinner className='animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900' />
-					) : error ? (
-						<ErrorMessage error={error} />
-					) : locations.length > 0 ? (
+					) : searchContext?.error ? (
+						<ErrorMessage error={searchContext?.error} />
+					) : searchContext?.locations.length > 0 ? (
 						<SearchBarList
-							onCoordinatesSelect={onCoordinatesSelect}
-							locations={locations}
+							locations={searchContext?.locations}
 							onClose={handleEmptyLocationsList}
 						/>
 					) : (
