@@ -33,9 +33,9 @@ export default function SearchCityCardList({
 							<div>
 								<SearchCityCard
 									className='rounded-xl m-4 bg-white p-5 cursor-pointer hover:scale-110 ease-in duration-300'
-									cityName={city.cityName}
-									state={city.state}
-									country={city.country}
+									cityName={city.cityName as string}
+									state={city.state as string}
+									country={city.country as string}
 									onClick={() =>
 										handleModal(city.lat, city.lon)
 									}
