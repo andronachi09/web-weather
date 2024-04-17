@@ -1,9 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios";
-
-import { CurrentWeather, CurrentWeatherResponseApi, GeocodingResponse } from "../types/geocoding.types";
-import { ErrorResponse } from "../types/error.types";
-
-export async function findLocationByGeocoding(
+import axios, { AxiosRequestConfig } from "axios";import { CurrentWeather, CurrentWeatherResponseApi, GeocodingResponse } from "../types/geocoding.types";import { ErrorResponse } from "../types/error.types";export async function findLocationByGeocoding(
     cityName: string,
     limit: number,
     apiKey: string
@@ -62,19 +57,18 @@ export async function findCurrentWeatherLatLon(
     }
 
     const config: AxiosRequestConfig = {
-        baseURL: `https://api.openweathermap.org/data/3.0/onecall`,
-        params: {
-            lat,
-            lon,
-            exclude: 'minutely, alerts',
-            appid: apiKey,
-            units: 'metric'
-        },
-    };
+		baseURL: import.meta.env.VITE_SERVER_LINK,
+		params: {
+			lat,
+			lon,
+			appid: apiKey,
+		},
+	};
 
     try {
         const response = await axios.get<CurrentWeatherResponseApi>(config.url!, config);
         const data = response.data;
+        console.log(response);
 
         const transformData: CurrentWeather = {
             place: placeName,
