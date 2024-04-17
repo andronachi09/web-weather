@@ -1,6 +1,4 @@
-import React from 'react';
 import { useState, useEffect } from 'react';
-
 import { findCurrentWeatherLatLon } from '../../../hooks/useGeocoding';
 import { CurrentWeather } from '../../../types/geocoding.types';
 
