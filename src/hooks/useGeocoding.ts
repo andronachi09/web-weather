@@ -4,7 +4,7 @@ import axios, { AxiosRequestConfig } from "axios";import { CurrentWeather, Curre
     apiKey: string
 ): Promise<GeocodingResponse[] | ErrorResponse> {
     const config: AxiosRequestConfig = {
-        baseURL: `http://api.openweathermap.org/geo/1.0/direct`,
+        baseURL: `https://api.openweathermap.org/geo/1.0/direct`,
         params: {
             q: `${cityName}`,
             limit,
@@ -36,7 +36,7 @@ export async function findCurrentWeatherLatLon(
 ): Promise<ErrorResponse | CurrentWeather> {
     //fetching place name by reverse geocoding
     const reverseGeocodingConfig: AxiosRequestConfig = {
-        baseURL: `http://api.openweathermap.org/geo/1.0/reverse`,
+        baseURL: `https://api.openweathermap.org/geo/1.0/reverse`,
         params: {
             lat,
             lon,
