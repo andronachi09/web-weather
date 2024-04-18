@@ -1,5 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios";import { CurrentWeather, CurrentWeatherResponseApi, GeocodingResponse } from "../types/geocoding.types";import { ErrorResponse } from "../types/error.types";export async function findLocationByGeocoding(    cityName: string,
-    limit: number,
+import axios, { AxiosRequestConfig } from "axios";import { CurrentWeather, CurrentWeatherResponseApi, GeocodingResponse } from "../types/geocoding.types";import { ErrorResponse } from "../types/error.types";export async function findLocationByGeocoding(    cityName: string,    limit: number,
     apiKey: string
 ): Promise<GeocodingResponse[] | ErrorResponse> {
     const config: AxiosRequestConfig = {
@@ -60,8 +59,9 @@ export async function findCurrentWeatherLatLon(
 		params: {
 			lat,
 			lon,
-            appid: apiKey,
-            units: 'metric'
+			appid: apiKey,
+			units: 'metric',
+			exclude: 'minutes, alerts'
 		},
 	};
 
