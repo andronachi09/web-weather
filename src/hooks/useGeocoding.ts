@@ -60,7 +60,8 @@ export async function findCurrentWeatherLatLon(
 		params: {
 			lat,
 			lon,
-			appid: apiKey,
+            appid: apiKey,
+            units: 'metric'
 		},
 	};
 
