@@ -1,5 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios";import { CurrentWeather, CurrentWeatherResponseApi, GeocodingResponse } from "../types/geocoding.types";import { ErrorResponse } from "../types/error.types";export async function findLocationByGeocoding(
-    cityName: string,
+import axios, { AxiosRequestConfig } from "axios";import { CurrentWeather, CurrentWeatherResponseApi, GeocodingResponse } from "../types/geocoding.types";import { ErrorResponse } from "../types/error.types";export async function findLocationByGeocoding(    cityName: string,
     limit: number,
     apiKey: string
 ): Promise<GeocodingResponse[] | ErrorResponse> {
@@ -57,7 +56,7 @@ export async function findCurrentWeatherLatLon(
     }
 
     const config: AxiosRequestConfig = {
-		baseURL: import.meta.env.VITE_SERVER_LINK,
+		baseURL: `https://api.openweathermap.org/data/3.0/onecall`,
 		params: {
 			lat,
 			lon,
@@ -68,7 +67,6 @@ export async function findCurrentWeatherLatLon(
     try {
         const response = await axios.get<CurrentWeatherResponseApi>(config.url!, config);
         const data = response.data;
-        console.log(response);
 
         const transformData: CurrentWeather = {
             place: placeName,

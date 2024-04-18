@@ -1,4 +1,5 @@
-import { useContext } from 'react';import CityWeather from '../templates/CityWeather';
+import { useContext } from 'react';
+import CityWeather from '../templates/CityWeather';
 import Header from '../templates/Header';
 import WeatherLocation from '../templates/WeatherLocation';
 import LineChart from '@/components/v-02/templates/Chart';

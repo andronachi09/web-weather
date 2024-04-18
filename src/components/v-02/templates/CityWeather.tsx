@@ -14,7 +14,7 @@ export default function CityWeather() {
 	return (
 		<div>
 			{weatherContext?.error && (
-				<p className='bg-grey-500 text-red-500'>
+				<p className='bg-grey-500 text-red-500 pl-6'>
 					{weatherContext.error}
 				</p>
 			)}

@@ -1,4 +1,5 @@
-import { ReactNode, createContext, useEffect, useState } from 'react';import { findCurrentWeatherLatLon } from '@/hooks/useGeocoding';
+import { ReactNode, createContext, useEffect, useState } from 'react';
+import { findCurrentWeatherLatLon } from '@/hooks/useGeocoding';
 import { CurrentWeather } from '@/types/geocoding.types';
 
 type WeatherContextType = {
