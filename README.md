@@ -4,7 +4,7 @@
 
 ## Project status
 
-The project has been finished. User can search for any location, and see the different weather stats like: precipitation, temperature,
+The application's front-end development is finalized.. User can search for any location, and see the different weather stats like: precipitation, temperature,
 forecast etc.
 
 ## Project Screen Shot
@@ -25,7 +25,7 @@ The key for `VITE_MAPBOX_API_KEY`can be found [here](https://www.mapbox.com/).
 To start the application locally:<br>
 `yarn dev`
 
-For visiting the app a link will pe provided in console.
+To access the app on your local machine a link will be provided in console.
 
 ## Reflection
 
