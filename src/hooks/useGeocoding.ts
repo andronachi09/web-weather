@@ -5,8 +5,8 @@ import { ErrorResponse } from "../types/error.types";
 
 export async function findLocationByGeocoding(cityName: string, limit: number): Promise<GeocodingResponse[] | ErrorResponse> {
     const config: AxiosRequestConfig = {
-        baseURL: `http://localhost:8080/locations`,
-        // baseURL: import.meta.env.VITE_API_LOCATIONS,
+        // baseURL: `http://localhost:8080/locations`,
+        baseURL: import.meta.env.VITE_API_LOCATIONS,
         params: {
             q: `${cityName}`,
             limit,
@@ -33,11 +33,10 @@ export async function findLocationByGeocoding(cityName: string, limit: number): 
 export async function findCurrentWeatherLatLon(
     lat: number,
     lon: number,
-    // apiKey: string
 ): Promise<ErrorResponse | CurrentWeather> {
     const config: AxiosRequestConfig = {
-        baseURL: `http://localhost:8080/weather`,
-        // baseURL: import.meta.env.VITE_API_CURRENT_WEATHER,
+        // baseURL: `http://localhost:8080/weather`,
+        baseURL: import.meta.env.VITE_API_CURRENT_WEATHER,
         params: {
             lat,
             lon,
