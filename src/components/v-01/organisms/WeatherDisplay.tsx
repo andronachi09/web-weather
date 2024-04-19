@@ -5,14 +5,9 @@ import { CurrentWeather } from '../../../types/geocoding.types';
 type WeatherDisplayType = {
 	lat: number;
 	lon: number;
-	apiKey: string;
 };
 
-export default function WeatherDisplay({
-	lat,
-	lon,
-	apiKey,
-}: WeatherDisplayType) {
+export default function WeatherDisplay({ lat, lon }: WeatherDisplayType) {
 	const [currentWeather, setCurrentWeather] = useState<CurrentWeather | null>(
 		null,
 	);
@@ -21,11 +16,7 @@ export default function WeatherDisplay({
 	useEffect(() => {
 		const fetchWeather = async () => {
 			try {
-				const fetchedData = await findCurrentWeatherLatLon(
-					lat,
-					lon,
-					apiKey,
-				);
+				const fetchedData = await findCurrentWeatherLatLon(lat, lon);
 				if ('statusCode' in fetchedData) {
 					setError(`Error: ${fetchedData.messageError}`);
 				} else {
@@ -36,7 +27,7 @@ export default function WeatherDisplay({
 			}
 		};
 		fetchWeather();
-	}, [lat, lon, apiKey]);
+	}, [lat, lon]);
 
 	if (error) return <div>Error.</div>;
 	if (!currentWeather) return <div>Loading...</div>;
@@ -67,14 +58,6 @@ export default function WeatherDisplay({
 					</div>
 				))}
 			</div>
-			{/* <div>
-        {currentWeather.hourly.map((hour, index) =>
-          <div key={index}>
-            <p>{hour.time}</p>
-            <p>{hour.temperature}</p>
-          </div>
-        )}
-      </div> */}
 		</div>
 	);
 }

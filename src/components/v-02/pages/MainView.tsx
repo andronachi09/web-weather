@@ -1,5 +1,4 @@
-import { useContext } from 'react';
-import CityWeather from '../templates/CityWeather';
+import { useContext } from 'react';import CityWeather from '../templates/CityWeather';
 import Header from '../templates/Header';
 import WeatherLocation from '../templates/WeatherLocation';
 import LineChart from '@/components/v-02/templates/Chart';
@@ -9,14 +8,12 @@ import { SearchContext } from '@/store/searchContext';
 
 export default function MainView() {
 	const searchContext = useContext(SearchContext);
-	const apiKey: string = import.meta.env.VITE_WEATHER_API_KEY;
 
 	return (
 		<>
 			<WeatherProvider
 				lat={searchContext?.selectedLocation?.lat as number}
 				lon={searchContext?.selectedLocation?.lon as number}
-				apiKey={apiKey}
 			>
 				<div className='w-full h-screen'>
 					<div className='max-w-[1240px] w-full h-full mx-auto flex flex-col pt-4 gap-2'>

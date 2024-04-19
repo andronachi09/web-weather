@@ -16,7 +16,6 @@ export default function SearchCityCardList({
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [longitude, setLongitude] = useState<number>(0);
 	const [latitude, setLatitude] = useState<number>(0);
-	const apiKey: string = import.meta.env.VITE_WEATHER_API_KEY;
 
 	const handleModal = (lat: number, lon: number) => {
 		setIsModalOpen(!isModalOpen);
@@ -53,11 +52,7 @@ export default function SearchCityCardList({
 					className='flex flex-col justify-center items-center'
 				>
 					<Box className='flex justify-center items-center h-screen w-3/6 bg-white rounded-2xl'>
-						<WeatherDisplay
-							lat={latitude}
-							lon={longitude}
-							apiKey={apiKey}
-						/>
+						<WeatherDisplay lat={latitude} lon={longitude} />
 					</Box>
 				</Modal>
 			</div>

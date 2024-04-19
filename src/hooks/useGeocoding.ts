@@ -5,8 +5,8 @@ import { ErrorResponse } from "../types/error.types";
 
 export async function findLocationByGeocoding(cityName: string, limit: number): Promise<GeocodingResponse[] | ErrorResponse> {
     const config: AxiosRequestConfig = {
-        // baseURL: `http://localhost:8080/locations`,
-        baseURL: import.meta.env.VITE_API_LOCATIONS,
+        baseURL: `http://localhost:8080/locations`,
+        // baseURL: import.meta.env.VITE_API_LOCATIONS,
         params: {
             q: `${cityName}`,
             limit,
@@ -33,33 +33,11 @@ export async function findLocationByGeocoding(cityName: string, limit: number): 
 export async function findCurrentWeatherLatLon(
     lat: number,
     lon: number,
-    apiKey: string
+    // apiKey: string
 ): Promise<ErrorResponse | CurrentWeather> {
-    //fetching place name by reverse geocoding
-    const reverseGeocodingConfig: AxiosRequestConfig = {
-        baseURL: `https://api.openweathermap.org/geo/1.0/reverse`,
-        params: {
-            lat,
-            lon,
-            limit: 1,
-            appid: apiKey
-        },
-    };
-
-    let placeName = `${lat}, ${lon}`;
-
-    try {
-        const geoResponse = await axios.get<GeocodingResponse[]>(reverseGeocodingConfig.url!, reverseGeocodingConfig);
-        if (geoResponse.data && geoResponse.data.length > 0) {
-            placeName = geoResponse.data[0].name;
-        }
-    } catch (geoError) {
-        console.error("Error fetching location name:", geoError);
-    }
-
     const config: AxiosRequestConfig = {
-        // baseURL: `http://localhost:8080/weather`,
-        baseURL: import.meta.env.VITE_API_CURRENT_WEATHER,
+        baseURL: `http://localhost:8080/weather`,
+        // baseURL: import.meta.env.VITE_API_CURRENT_WEATHER,
         params: {
             lat,
             lon,
@@ -71,7 +49,7 @@ export async function findCurrentWeatherLatLon(
         const data = response.data;
 
         const transformData: CurrentWeather = {
-            place: placeName,
+            place: data.placeName,
             timezone: data.timezone,
             temperature: {
                 current: data.current.temp,

@@ -6,6 +6,7 @@ export type GeocodingResponse = {    name: string,
 };
 
 export type CurrentWeatherResponseApi = {
+    placeName: string,
     lat: number,
     lon: number,
     timezone: string,
