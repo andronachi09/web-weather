@@ -22,7 +22,7 @@ type SearchProviderProps = {
 	apiKey: string;
 };
 
-export const SearchProvider = ({ children, apiKey }: SearchProviderProps) => {
+export const SearchProvider = ({ children }: SearchProviderProps) => {
 	const [inputText, setInputText] = useState<string>('');
 	const [locations, setLocations] = useState<GeocodingResponse[]>([]);
 	const [error, setError] = useState<string>('');
@@ -48,7 +48,6 @@ export const SearchProvider = ({ children, apiKey }: SearchProviderProps) => {
 				const fetchResponse = await findLocationByGeocoding(
 					message,
 					10,
-					apiKey,
 				);
 				if ('statusCode' in fetchResponse) {
 					return error;

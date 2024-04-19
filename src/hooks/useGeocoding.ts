@@ -1,17 +1,20 @@
-import axios, { AxiosRequestConfig } from "axios";import { CurrentWeather, CurrentWeatherResponseApi, GeocodingResponse } from "../types/geocoding.types";import { ErrorResponse } from "../types/error.types";export async function findLocationByGeocoding(    cityName: string,    limit: number,
-    apiKey: string
-): Promise<GeocodingResponse[] | ErrorResponse> {
+import axios, { AxiosRequestConfig } from "axios";
+
+import { CurrentWeather, CurrentWeatherResponseApi, GeocodingResponse } from "../types/geocoding.types";
+import { ErrorResponse } from "../types/error.types";
+
+export async function findLocationByGeocoding(cityName: string, limit: number): Promise<GeocodingResponse[] | ErrorResponse> {
     const config: AxiosRequestConfig = {
-        baseURL: `https://api.openweathermap.org/geo/1.0/direct`,
+        // baseURL: `http://localhost:8080/locations`,
+        baseURL: import.meta.env.VITE_API_LOCATIONS,
         params: {
             q: `${cityName}`,
             limit,
-            appid: apiKey
         },
     };
 
     try {
-        const response = await axios.get<GeocodingResponse[]>(config.url!, config);
+        const response = await axios.get<GeocodingResponse[]>(config.baseURL as string, config);
         return response.data;
     } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
@@ -55,15 +58,13 @@ export async function findCurrentWeatherLatLon(
     }
 
     const config: AxiosRequestConfig = {
-		baseURL: `https://api.openweathermap.org/data/3.0/onecall`,
-		params: {
-			lat,
-			lon,
-			appid: apiKey,
-			units: 'metric',
-			exclude: 'minutes, alerts'
-		},
-	};
+        // baseURL: `http://localhost:8080/weather`,
+        baseURL: import.meta.env.VITE_API_CURRENT_WEATHER,
+        params: {
+            lat,
+            lon,
+        },
+    };
 
     try {
         const response = await axios.get<CurrentWeatherResponseApi>(config.url!, config);

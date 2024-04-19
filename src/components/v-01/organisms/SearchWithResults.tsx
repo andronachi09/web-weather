@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';import SearchBar from '../molecules/SearchBar';
+import { useEffect, useState } from 'react';
+import SearchBar from '../molecules/SearchBar';
 import SearchCityCardList from '../molecules/SearchCityCardList';
 import { findLocationByGeocoding } from '../../../hooks/useGeocoding';
 import { CityType } from '../../../types/city.types';
@@ -13,15 +14,10 @@ export default function SearchWithResults({
 	const [cities, setCities] = useState<CityType[]>([]);
 	const [searchTerm, setSearchTerm] = useState<string>('');
 	const [error, setError] = useState<string>('');
-	const apiKey: string = import.meta.env.VITE_WEATHER_API_KEY;
 
 	useEffect(() => {
 		const fetchCities = async () => {
-			const result = await findLocationByGeocoding(
-				searchTerm,
-				10,
-				apiKey,
-			);
+			const result = await findLocationByGeocoding(searchTerm, 10);
 			if ('statusCode' in result) {
 				return error;
 			} else if (!result || result.length === 0) {
@@ -42,7 +38,7 @@ export default function SearchWithResults({
 		};
 
 		fetchCities();
-	}, [searchTerm]);
+	}, [searchTerm, error, setError]);
 
 	return (
 		<div className={className}>
