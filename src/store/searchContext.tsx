@@ -1,4 +1,5 @@
-import { findLocationByGeocoding } from '@/hooks/useGeocoding';import { GeocodingResponse } from '@/types/geocoding.types';
+import { findLocationByGeocoding } from '@/hooks/useGeocoding';
+import { GeocodingResponse } from '@/types/geocoding.types';
 import { validateAndSanitizeSearchInput } from '@/utils/validateSearchInput';
 import { ReactNode, createContext, useEffect, useState } from 'react';
 
@@ -19,7 +20,6 @@ export const SearchContext = createContext<SearchContextType | null>(null);
 
 type SearchProviderProps = {
 	children?: ReactNode;
-	apiKey: string;
 };
 
 export const SearchProvider = ({ children }: SearchProviderProps) => {
