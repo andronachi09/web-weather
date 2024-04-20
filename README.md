@@ -6,7 +6,7 @@
 The application's front-end development is finalized. Users can search for any location, and see the different weather stats like:
 precipitation, temperature, forecast etc.
 
-## Project Screen Shot
+## Project Screenshot
 
 ![alt text](image.png)
 
