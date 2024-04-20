@@ -1,11 +1,10 @@
 # Web Weather Application
-
-## An web application used to search current weather in any desired locations
+## A web application used to search current weather in any desired locations
 
 ## Project status
 
-The application's front-end development is finalized.. User can search for any location, and see the different weather stats like: precipitation, temperature,
-forecast etc.
+The application's front-end development is finalized. Users can search for any location, and see the different weather stats like:
+precipitation, temperature, forecast etc.
 
 ## Project Screen Shot
 
@@ -13,7 +12,7 @@ forecast etc.
 
 ## Installation and Setup Instructions
 
-Clone down this repository. You will need `node` and `yarn` installed globbally on your machine.
+Clone down this repository. You will need `node` and `yarn` installed globally on your machine.
 
 Installation:<br>
 `yarn install`
@@ -25,10 +24,10 @@ The key for `VITE_MAPBOX_API_KEY`can be found [here](https://www.mapbox.com/).
 To start the application locally:<br>
 `yarn dev`
 
-To access the app on your local machine a link will be provided in console.
+To access the app on your local machine a link will be provided in the console.
 
 ## Reflection
 
-This project represent an example which integrates different technologies for creating a responsive web application for real-time
+This project represents an example that integrates different technologies for creating a responsive web application for real-time
 weather data visualization. For fetching the real-time weather data, the Weather API was utilized. For map view, Mapbox API was
-used, which offers users and intercative map view. UI inspiration: https://dribbble.com/shots/21505269-Weather-Dashbard-App.
+used, which offers users an interactive map view. UI inspiration: https://dribbble.com/shots/21505269-Weather-Dashbard-App.
