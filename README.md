@@ -6,7 +6,7 @@
 The application's front-end and back-end development are finalized. Users can search for any location, and see the different weather stats
 like precipitation, temperature, forecast etc. The web application can be accessed at this [link](web-weather-zeta.vercel.app).
 
-## Project Screen Shot
+## Project Screenshot
 
 ![alt text](image.png)
 
