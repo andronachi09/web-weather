@@ -6,6 +6,8 @@ type WeatherContextType = {
 	setCurrentWeather: (weather: CurrentWeather) => void;
 	error: string;
 	setError: (error: string) => void;
+	isLoading: boolean;
+	setIsLoading: (isLoading: boolean) => void;
 };
 
 export const WeatherContext = createContext<WeatherContextType | null>(null);
@@ -23,6 +25,7 @@ export const WeatherProvider = ({
 }: WeatherProviderProps) => {
 	const [weather, setCurrentWeather] = useState<CurrentWeather | null>(null);
 	const [error, setError] = useState('');
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 
 	useEffect(() => {
 		if (lat == null && lon == null) {
@@ -31,6 +34,7 @@ export const WeatherProvider = ({
 
 		const fetchCurrentWeather = async () => {
 			try {
+				setIsLoading(true);
 				const fetchData = await findCurrentWeatherLatLon(lat!, lon!);
 				if ('statusCode' in fetchData) {
 					setError(`Error: ${fetchData.messageError}!`);
@@ -40,6 +44,10 @@ export const WeatherProvider = ({
 				}
 			} catch (error) {
 				setError(`Failed to obtain data: ${error}`);
+			} finally {
+				// setTimeout(() => {
+				setIsLoading(false);
+				// }, 2000);
 			}
 		};
 
@@ -48,7 +56,14 @@ export const WeatherProvider = ({
 
 	return (
 		<WeatherContext.Provider
-			value={{ weather, setCurrentWeather, error, setError }}
+			value={{
+				weather,
+				setCurrentWeather,
+				error,
+				setError,
+				isLoading,
+				setIsLoading,
+			}}
 		>
 			{children}
 		</WeatherContext.Provider>

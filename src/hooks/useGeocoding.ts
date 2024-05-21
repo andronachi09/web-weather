@@ -1,16 +1,15 @@
-import axios, { AxiosRequestConfig } from "axios";
-
-import { CurrentWeather, CurrentWeatherResponseApi, GeocodingResponse } from "../types/geocoding.types";
+import axios, { AxiosRequestConfig } from "axios";import { CurrentWeather, CurrentWeatherResponseApi, GeocodingResponse } from "../types/geocoding.types";
 import { ErrorResponse } from "../types/error.types";
 
 export async function findLocationByGeocoding(cityName: string, limit: number): Promise<GeocodingResponse[] | ErrorResponse> {
     const config: AxiosRequestConfig = {
-        baseURL: import.meta.env.VITE_API_LOCATIONS,
-        params: {
-            q: `${cityName}`,
-            limit,
-        },
-    };
+		baseURL: import.meta.env.VITE_API_LOCATIONS,
+		// baseURL: import.meta.env.VITE_LOCAL_LOCATIONS,
+		params: {
+			q: `${cityName}`,
+			limit,
+		},
+	};
 
     try {
         const response = await axios.get<GeocodingResponse[]>(config.baseURL as string, config);
@@ -34,12 +33,13 @@ export async function findCurrentWeatherLatLon(
     lon: number,
 ): Promise<ErrorResponse | CurrentWeather> {
     const config: AxiosRequestConfig = {
-        baseURL: import.meta.env.VITE_API_CURRENT_WEATHER,
-        params: {
-            lat,
-            lon,
-        },
-    };
+		baseURL: import.meta.env.VITE_API_CURRENT_WEATHER,
+		// baseURL: import.meta.env.VITE_LOCAL_WEATHER,
+		params: {
+			lat,
+			lon,
+		},
+	};
 
     try {
         const response = await axios.get<CurrentWeatherResponseApi>(config.url!, config);

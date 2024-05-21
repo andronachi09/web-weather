@@ -1,4 +1,5 @@
-import { useContext } from 'react';import { SearchContext } from '@/store/searchContext';
+import { useContext } from 'react';
+import { SearchContext } from '@/store/searchContext';
 
 import InputField from '../atoms/InputField';
 import ErrorMessage from '../atoms/ErrorMessage';
