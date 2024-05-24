@@ -5,11 +5,9 @@ import ErrorMessage from '../atoms/ErrorMessage';
 import SearchBarList from '../molecules/SearchBarMolecules/SearchBarList';
 import Button from '../atoms/Button';
 import Spinner from '../atoms/Spinner';
-import { WeatherContext } from '@/store/weatherContext';
 
 export default function SearchBar() {
 	const searchContext = useContext(SearchContext);
-	const weatherContext = useContext(WeatherContext);
 
 	const handleEmptyLocationsList = () => {
 		searchContext?.setInputText('');
