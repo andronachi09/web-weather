@@ -1,14 +1,14 @@
-import { useContext } from 'react';
-import { SearchContext } from '@/store/searchContext';
-
+import { useContext } from 'react';import { SearchContext } from '@/store/searchContext';
 import InputField from '../atoms/InputField';
 import ErrorMessage from '../atoms/ErrorMessage';
 import SearchBarList from '../molecules/SearchBarMolecules/SearchBarList';
 import Button from '../atoms/Button';
 import Spinner from '../atoms/Spinner';
+import { WeatherContext } from '@/store/weatherContext';
 
 export default function SearchBar() {
 	const searchContext = useContext(SearchContext);
+	const weatherContext = useContext(WeatherContext);
 
 	const handleEmptyLocationsList = () => {
 		searchContext?.setInputText('');
@@ -17,13 +17,27 @@ export default function SearchBar() {
 
 	return (
 		<div className='relative m-2 flex justify-center z-50'>
-			<InputField
-				type='text'
-				placeholder=' Search for city or location'
-				value={searchContext?.inputText}
-				onChange={(e) => searchContext?.setInputText(e.target.value)}
-				className='rounded-xl p-2 outline-none w-80 text-base'
-			/>
+			<div className='flex flex-col lg:flex-row'>
+				{weatherContext.weather ? (
+					<Button
+						className='text-[#C6E6E8] p-2 rounded-3xl hover:bg-[#C6E6E8] hover:text-black hover:rounded-3xl transition duration-500 ease-in-out mx-auto mr-6'
+						onClick={() => weatherContext.setCurrentWeather(null)}
+					>
+						Clean location
+					</Button>
+				) : (
+					<></>
+				)}
+				<InputField
+					type='text'
+					placeholder=' Search for city or location'
+					value={searchContext?.inputText}
+					onChange={(e) =>
+						searchContext?.setInputText(e.target.value)
+					}
+					className='rounded-xl p-2 outline-none w-80 text-base'
+				/>
+			</div>
 			{searchContext?.inputText && (
 				<Button
 					onClick={() => searchContext?.setInputText('')}

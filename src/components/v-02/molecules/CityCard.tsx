@@ -9,7 +9,7 @@ function CityCard() {
 			<div className='mt-2 px-3 rounded-xl bg-[#2E2E38]'>
 				<div className='flex flex-col'>
 					<div className='flex flex-row justify-between'>
-						<h2 className='text-2xl text-gray-200 mt-9'>
+						<h2 className='text-2xl text-gray-200 mt-9 ml-4'>
 							{weatherContext?.weather?.place}
 						</h2>
 						<div className=''>

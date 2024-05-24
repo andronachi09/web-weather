@@ -4,7 +4,7 @@ import { CurrentWeather } from '@/types/geocoding.types';
 
 type WeatherContextType = {
 	weather: CurrentWeather | null;
-	setCurrentWeather: (weather: CurrentWeather) => void;
+	setCurrentWeather: (weather: CurrentWeather | null) => void;
 	error: string;
 	setError: (error: string) => void;
 	isLoading: boolean;
@@ -26,8 +26,18 @@ export const WeatherContext = createContext<WeatherContextType>(
 
 type WeatherProviderProps = {
 	children?: ReactNode;
-	lat: number;
-	lon: number;
+	lat?: number;
+	lon?: number;
+};
+
+const CACHE_KEY_PREFIX = 'weather_';
+const CACHE_EXPIRATION_MS = 3600000;
+
+const getCacheKey = (lat: number, lon: number) =>
+	`${CACHE_KEY_PREFIX}${lat}_${lon}`;
+
+const isCacheExpired = (timestamp: number) => {
+	return Date.now() - timestamp > CACHE_EXPIRATION_MS;
 };
 
 export const WeatherProvider = ({
@@ -44,15 +54,36 @@ export const WeatherProvider = ({
 			return;
 		}
 
+		const cacheKey = getCacheKey(lat as number, lon as number);
+		const cachedData = localStorage.getItem(cacheKey);
+		const cachedTimestamp = localStorage.getItem(`${cacheKey}_timestamp`);
+
+		if (
+			cachedData &&
+			cachedTimestamp &&
+			!isCacheExpired(Number(cachedTimestamp))
+		) {
+			setCurrentWeather(JSON.parse(cachedData));
+			return;
+		}
+
 		const fetchCurrentWeather = async () => {
 			setIsLoading(true);
 			setError('');
 			try {
-				const fetchData = await findCurrentWeatherLatLon(lat, lon);
+				const fetchData = await findCurrentWeatherLatLon(
+					lat as number,
+					lon as number,
+				);
 				if ('statusCode' in fetchData) {
 					setError(`Error: ${fetchData.messageError}!`);
 				} else {
 					setCurrentWeather(fetchData);
+					localStorage.setItem(cacheKey, JSON.stringify(fetchData));
+					localStorage.setItem(
+						`${cacheKey}_timestamp`,
+						Date.now().toString(),
+					);
 				}
 			} catch (error: unknown) {
 				setError(`Failed to obtain data: ${error}`);

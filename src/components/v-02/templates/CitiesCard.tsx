@@ -2,10 +2,10 @@ import { WeatherProvider } from '@/store/weatherContext';
 import CityCard from '../molecules/CityCard';
 
 const cities = [
-	{ lat: 40.7128, lon: -74.006, id: '1' },
-	{ lat: 34.0522, lon: -118.2437, id: '2' },
-	{ lat: 51.5074, lon: -0.1278, id: '3' },
-	{ lat: 35.6895, lon: 139.6917, id: '4' },
+	{ lat: 40.7128, lon: -74.006, id: 'New York' },
+	{ lat: 34.0522, lon: -118.2437, id: 'New Yor' },
+	{ lat: 51.5074, lon: -0.1278, id: 'New Yo' },
+	{ lat: 35.6895, lon: 139.6917, id: 'New Y' },
 ];
 
 function CitiesCard() {
