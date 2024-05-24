@@ -1,4 +1,5 @@
-import { useContext } from 'react';import { SearchContext } from '@/store/searchContext';
+import { useContext } from 'react';
+import { SearchContext } from '@/store/searchContext';
 import InputField from '../atoms/InputField';
 import ErrorMessage from '../atoms/ErrorMessage';
 import SearchBarList from '../molecules/SearchBarMolecules/SearchBarList';
@@ -18,16 +19,6 @@ export default function SearchBar() {
 	return (
 		<div className='relative m-2 flex justify-center z-50'>
 			<div className='flex flex-col lg:flex-row'>
-				{weatherContext.weather ? (
-					<Button
-						className='text-[#C6E6E8] p-2 rounded-3xl hover:bg-[#C6E6E8] hover:text-black hover:rounded-3xl transition duration-500 ease-in-out mx-auto mr-6'
-						onClick={() => weatherContext.setCurrentWeather(null)}
-					>
-						Clean location
-					</Button>
-				) : (
-					<></>
-				)}
 				<InputField
 					type='text'
 					placeholder=' Search for city or location'
