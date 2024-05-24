@@ -1,4 +1,5 @@
-import { ReactNode, createContext, useEffect, useState } from 'react';import { findCurrentWeatherLatLon } from '@/hooks/useGeocoding';
+import { ReactNode, createContext, useEffect, useMemo, useState } from 'react';
+import { findCurrentWeatherLatLon } from '@/hooks/useGeocoding';
 import { CurrentWeather } from '@/types/geocoding.types';
 
 type WeatherContextType = {
@@ -10,7 +11,18 @@ type WeatherContextType = {
 	setIsLoading: (isLoading: boolean) => void;
 };
 
-export const WeatherContext = createContext<WeatherContextType | null>(null);
+const defaultWeatherContext: WeatherContextType = {
+	weather: null,
+	setCurrentWeather: () => {},
+	error: '',
+	setError: () => {},
+	isLoading: false,
+	setIsLoading: () => {},
+};
+
+export const WeatherContext = createContext<WeatherContextType>(
+	defaultWeatherContext,
+);
 
 type WeatherProviderProps = {
 	children?: ReactNode;
@@ -33,38 +45,45 @@ export const WeatherProvider = ({
 		}
 
 		const fetchCurrentWeather = async () => {
+			setIsLoading(true);
+			setError('');
 			try {
-				setIsLoading(true);
-				const fetchData = await findCurrentWeatherLatLon(lat!, lon!);
+				const fetchData = await findCurrentWeatherLatLon(lat, lon);
 				if ('statusCode' in fetchData) {
 					setError(`Error: ${fetchData.messageError}!`);
 				} else {
 					setCurrentWeather(fetchData);
-					setError('');
 				}
-			} catch (error) {
+			} catch (error: unknown) {
 				setError(`Failed to obtain data: ${error}`);
 			} finally {
-				// setTimeout(() => {
 				setIsLoading(false);
-				// }, 2000);
 			}
 		};
 
 		fetchCurrentWeather();
+
+		return () => {
+			setCurrentWeather(null);
+			setError('');
+			setIsLoading(false);
+		};
 	}, [lat, lon]);
 
+	const contextValue = useMemo(
+		() => ({
+			weather,
+			setCurrentWeather,
+			error,
+			setError,
+			isLoading,
+			setIsLoading,
+		}),
+		[weather, error, isLoading],
+	);
+
 	return (
-		<WeatherContext.Provider
-			value={{
-				weather,
-				setCurrentWeather,
-				error,
-				setError,
-				isLoading,
-				setIsLoading,
-			}}
-		>
+		<WeatherContext.Provider value={contextValue}>
 			{children}
 		</WeatherContext.Provider>
 	);
