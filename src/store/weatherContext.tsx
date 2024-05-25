@@ -1,4 +1,10 @@
-import { ReactNode, createContext, useEffect, useMemo, useState } from 'react';
+import {	ReactNode,
+	createContext,
+	useCallback,
+	useEffect,
+	useMemo,
+	useState,
+} from 'react';
 import { findCurrentWeatherLatLon } from '@/hooks/useGeocoding';
 import { CurrentWeather } from '@/types/geocoding.types';
 
@@ -48,6 +54,10 @@ export const WeatherProvider = ({
 	const [weather, setCurrentWeather] = useState<CurrentWeather | null>(null);
 	const [error, setError] = useState('');
 	const [isLoading, setIsLoading] = useState<boolean>(false);
+
+	const memoizedSetCurrentWeather = useCallback(setCurrentWeather, []);
+	const memoizedSetError = useCallback(setError, []);
+	const memoizedSetIsLoading = useCallback(setIsLoading, []);
 
 	useEffect(() => {
 		if (lat == null && lon == null) {
@@ -104,13 +114,20 @@ export const WeatherProvider = ({
 	const contextValue = useMemo(
 		() => ({
 			weather,
-			setCurrentWeather,
+			setCurrentWeather: memoizedSetCurrentWeather,
 			error,
-			setError,
+			setError: memoizedSetError,
 			isLoading,
-			setIsLoading,
+			setIsLoading: memoizedSetIsLoading,
 		}),
-		[weather, error, isLoading],
+		[
+			weather,
+			error,
+			isLoading,
+			memoizedSetCurrentWeather,
+			memoizedSetError,
+			memoizedSetIsLoading,
+		],
 	);
 
 	return (

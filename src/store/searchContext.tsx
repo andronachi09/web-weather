@@ -1,7 +1,6 @@
-import { findLocationByGeocoding } from '@/hooks/useGeocoding';
+import { ReactNode, createContext, useEffect, useState } from 'react';import { findLocationByGeocoding } from '@/hooks/useGeocoding';
 import { GeocodingResponse } from '@/types/geocoding.types';
 import { validateAndSanitizeSearchInput } from '@/utils/validateSearchInput';
-import { ReactNode, createContext, useEffect, useState } from 'react';
 
 type SearchContextType = {
 	inputText: string;
@@ -16,7 +15,22 @@ type SearchContextType = {
 	setSelectedLocation: (location: { lat: number; lon: number }) => void;
 };
 
-export const SearchContext = createContext<SearchContextType | null>(null);
+const defaultSearchContext: SearchContextType = {
+	inputText: '',
+	setInputText: () => {},
+	locations: [],
+	setLocations: () => {},
+	error: '',
+	setError: () => {},
+	isLoading: false,
+	setIsLoading: () => {},
+	selectedLocation: null,
+	setSelectedLocation: () => {},
+};
+
+export const SearchContext = createContext<SearchContextType | null>(
+	defaultSearchContext,
+);
 
 type SearchProviderProps = {
 	children?: ReactNode;
@@ -60,8 +74,8 @@ export const SearchProvider = ({ children }: SearchProviderProps) => {
 					setError('');
 					setIsLoading(false);
 				}
-			} catch (error) {
-				/* empty */
+			} catch (error: unknown) {
+				setError(`Failed to find results: ${error}`);
 			}
 		};
 
