@@ -6,6 +6,8 @@ const cities = [
 	{ lat: 34.0522, lon: -118.2437, id: '2' },
 	{ lat: 51.5074, lon: -0.1278, id: '3' },
 	{ lat: 45.5019, lon: -73.5674, id: '4' },
+	{ lat: 44.4268, lon: 26.1025, id: '5' },
+	{ lat: -37.8136, lon: 144.9631, id: '6' },
 ];
 
 function CitiesCard() {
