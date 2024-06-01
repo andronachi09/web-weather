@@ -1,14 +1,21 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Map from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { SearchContext } from '@/store/searchContext';
 import { WeatherContext } from '@/store/weatherContext';
+import { useContextSelector } from 'use-context-selector';
 
 export default function WeatherLocation() {
-	const searchContext = useContext(SearchContext);
-	const weatherContext = useContext(WeatherContext);
+	const selectedLocation = useContextSelector(
+		SearchContext,
+		(state) => state?.selectedLocation,
+	);
+	const weather = useContextSelector(
+		WeatherContext,
+		(state) => state.weather,
+	);
 	const [mapKey, setMapKey] = useState<string>(
-		`map-${searchContext?.selectedLocation?.lat}-${searchContext?.selectedLocation?.lon}`,
+		`map-${selectedLocation?.lat}-${selectedLocation?.lon}`,
 	);
 	const mapContainerRef = useRef<HTMLDivElement>(null);
 	const apiKey: string = import.meta.env.VITE_MAPBOX_API_KEY;
@@ -16,7 +23,7 @@ export default function WeatherLocation() {
 	useEffect(() => {
 		const resizeObserver = new ResizeObserver(() => {
 			setMapKey(
-				`map-${searchContext?.selectedLocation?.lat}-${searchContext?.selectedLocation?.lon}-${Date.now()}`,
+				`map-${selectedLocation?.lat}-${selectedLocation?.lon}-${Date.now()}`,
 			);
 		});
 
@@ -29,14 +36,11 @@ export default function WeatherLocation() {
 				resizeObserver.unobserve(mapContainerRef.current);
 			}
 		};
-	}, [
-		searchContext?.selectedLocation?.lat,
-		searchContext?.selectedLocation?.lon,
-	]);
+	}, [selectedLocation?.lat, selectedLocation?.lon]);
 
 	return (
 		<>
-			{weatherContext?.weather ? (
+			{weather ? (
 				<div
 					ref={mapContainerRef}
 					className='p-6 bg-[#2E2E38] rounded-xl min-h-[350px] w-full h-full'
@@ -45,8 +49,8 @@ export default function WeatherLocation() {
 						key={mapKey}
 						mapboxAccessToken={apiKey}
 						initialViewState={{
-							longitude: searchContext?.selectedLocation?.lon,
-							latitude: searchContext?.selectedLocation?.lat,
+							longitude: selectedLocation?.lon,
+							latitude: selectedLocation?.lat,
 							zoom: 12,
 						}}
 						style={{

@@ -1,4 +1,5 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
+import { useContextSelector } from 'use-context-selector';
 import {
 	Chart as ChartJS,
 	CategoryScale,
@@ -45,14 +46,17 @@ export default function LineChart() {
 	const [selectedMetrics, setSelectedMetrics] = useState<Metrics>(
 		Metrics.Humidity,
 	);
-	const weatherContext = useContext(WeatherContext);
+	const weather = useContextSelector(
+		WeatherContext,
+		(state) => state.weather,
+	);
 
 	const handleButtonClick = (metric: Metrics) => {
 		setSelectedMetrics(metric);
 	};
 
 	const representData: ChartData = {
-		labels: weatherContext?.weather?.daily.map((day) =>
+		labels: weather?.daily.map((day) =>
 			new Date(day.dt * 1000).toDateString(),
 		),
 		datasets: [
@@ -60,7 +64,7 @@ export default function LineChart() {
 				label:
 					selectedMetrics.charAt(0).toUpperCase() +
 					selectedMetrics.slice(1),
-				data: weatherContext?.weather?.daily.map(
+				data: weather?.daily.map(
 					(day) => day[selectedMetrics] as number,
 				),
 				fill: false,
@@ -98,7 +102,7 @@ export default function LineChart() {
 
 	return (
 		<>
-			{weatherContext?.weather ? (
+			{weather ? (
 				<div className='w-full'>
 					<div className='p-2 rounded-xl bg-[#2E2E38] lg:p-6'>
 						<div className='flex flex-col justify-between items-center gap-2 sm:flex sm:flex-row'>

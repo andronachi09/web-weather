@@ -1,4 +1,5 @@
-import { ReactNode, createContext, useEffect, useState } from 'react';import { findLocationByGeocoding } from '@/hooks/useGeocoding';
+import { ReactNode, useEffect, useState } from 'react';import { createContext } from 'use-context-selector';
+import { findLocationByGeocoding } from '@/hooks/useGeocoding';
 import { GeocodingResponse } from '@/types/geocoding.types';
 import { validateAndSanitizeSearchInput } from '@/utils/validateSearchInput';
 

@@ -1,5 +1,5 @@
-import { useContext } from 'react';
 import { SearchContext } from '@/store/searchContext';
+import { useContextSelector } from 'use-context-selector';
 
 type SearchResultProps = {
 	name: string;
@@ -18,10 +18,13 @@ export default function SearchResult({
 	lon,
 	onClose,
 }: SearchResultProps) {
-	const searchContext = useContext(SearchContext);
+	const setSelectedLocation = useContextSelector(
+		SearchContext,
+		(state) => state?.setSelectedLocation,
+	);
 
 	return (
-		<div onClick={() => searchContext?.setSelectedLocation({ lat, lon })}>
+		<div onClick={() => setSelectedLocation?.({ lat, lon })}>
 			<div onClick={() => onClose()}>
 				{name}, {country} {state ? `, ${state}` : ''}
 			</div>

@@ -1,19 +1,21 @@
-import { useContext } from 'react';
-import { WeatherContext, WeatherProvider } from '@/store/weatherContext';
-import { SearchContext } from '@/store/searchContext';
+import { WeatherContext, WeatherProvider } from '@/store/weatherContext';import { SearchContext } from '@/store/searchContext';
 
 import Header from '../templates/Header';
 import Spinner from '../atoms/Spinner';
 import CitiesCard from '../templates/CitiesCard';
 import WeatherData from '../organisms/WeatherData';
+import { useContextSelector } from 'use-context-selector';
 
 export default function MainView() {
-	const searchContext = useContext(SearchContext);
+	const selectedLocation = useContextSelector(
+		SearchContext,
+		(state) => state?.selectedLocation,
+	);
 
 	return (
 		<WeatherProvider
-			lat={searchContext?.selectedLocation?.lat as number}
-			lon={searchContext?.selectedLocation?.lon as number}
+			lat={selectedLocation?.lat as number}
+			lon={selectedLocation?.lon as number}
 		>
 			<MainContent />
 		</WeatherProvider>
@@ -21,7 +23,14 @@ export default function MainView() {
 }
 
 function MainContent() {
-	const { isLoading, weather } = useContext(WeatherContext) || {};
+	const isLoading = useContextSelector(
+		WeatherContext,
+		(state) => state.isLoading,
+	);
+	const weather = useContextSelector(
+		WeatherContext,
+		(state) => state.weather,
+	);
 
 	return (
 		<div className='w-full h-screen'>

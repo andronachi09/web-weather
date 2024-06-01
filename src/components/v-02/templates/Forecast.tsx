@@ -1,10 +1,14 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
+import { useContextSelector } from 'use-context-selector';
 import Button from '../atoms/Button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { WeatherContext } from '@/store/weatherContext';
 
 export default function Forecast() {
-	const weatherContext = useContext(WeatherContext);
+	const weather = useContextSelector(
+		WeatherContext,
+		(state) => state.weather,
+	);
 	const [forecastDuration, setForecastDuration] = useState(3);
 
 	const handleThreeDayClick = () => {
@@ -17,7 +21,7 @@ export default function Forecast() {
 
 	return (
 		<>
-			{weatherContext?.weather ? (
+			{weather ? (
 				<div className='p-6 rounded-xl bg-[#2E2E38] h-full'>
 					<div className='flex flex-row justify-between'>
 						<div>
@@ -41,7 +45,7 @@ export default function Forecast() {
 						</div>
 					</div>
 					<ScrollArea className='lg:h-96 rounded-md hide-scrollbar pt-3'>
-						{weatherContext?.weather?.daily
+						{weather?.daily
 							.slice(0, forecastDuration)
 							.map((day) => (
 								<>
