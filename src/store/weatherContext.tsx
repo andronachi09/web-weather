@@ -1,7 +1,7 @@
-import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
-import { findCurrentWeatherLatLon } from '@/hooks/useGeocoding';
+import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';import { findCurrentWeatherLatLon } from '@/hooks/useGeocoding';
 import { CurrentWeather } from '@/types/geocoding.types';
 import { createContext } from 'use-context-selector';
+import { debounce } from '@/lib/utils';
 
 type WeatherContextType = {
 	weather: CurrentWeather | null;
@@ -72,7 +72,7 @@ export const WeatherProvider = ({
 			return;
 		}
 
-		const fetchCurrentWeather = async () => {
+		const fetchCurrentWeather = debounce(async () => {
 			setIsLoading(true);
 			setError('');
 			try {
@@ -95,7 +95,7 @@ export const WeatherProvider = ({
 			} finally {
 				setIsLoading(false);
 			}
-		};
+		}, 500);
 
 		fetchCurrentWeather();
 
